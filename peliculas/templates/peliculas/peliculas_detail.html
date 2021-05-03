@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}{{ object.titulo}}{% endblock %}
+
+{% block content %}
+    <div class="post">
+        <div class="page-header">
+            <h2><b><i>{{ object.titulo }}</i></b></h2>
+        </div>
+        <div class ="content container">
+            <div class = "row">
+                <div class="col-md-8">
+                    <p>
+                        <a class="btn btn-default" href="{% url 'pelicula_editar' pk=object.pk %}"><span class="glyphicon glyphicon-pencil"></span></a> 
+                        <a class="btn btn-default" href="{% url 'pelicula_eliminar' pk=object.pk %}"><span class="glyphicon glyphicon-remove"></span></a> 
+                    </p>
+                    <p><b>Fecha:   </b>{{ object.fecha_publicacion|date:"j F, Y"}}</p>
+                    <p><b>Categoría:   </b>{{ object.categoria}}</p>
+                    <p><b>Director:   </b><a href="/director/{{object.director.pk}}">{{ object.director}}</a> </p>
+                    <p><b>Sinopsis:   </b>{{ object.sinopsis}}</p>
+                    <p><a href="{{object.trailer}}">Trailer</a></p>
+                </div>
+            </div>
+        </div>
+        
+
+    </div>
+
+   
+{% endblock %}

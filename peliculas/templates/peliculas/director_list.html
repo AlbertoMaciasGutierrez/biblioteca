@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Listado de directores{% endblock %}
+
+{% block content %}
+    <h5>AÑADIR DIRECTOR  &nbsp;<a href="{% url 'director_nuevo' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a></h5>
+    <br>
+    <ul>
+        {% for director in directoresOrdenados %}
+            <li><a href="/director/{{director.pk}}"> {{ director.nombre }} - {{ director.fecha_nacimiento|date:"Y" }}</li></a>
+        {% empty %}
+            <li>Aún no hay Directores.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

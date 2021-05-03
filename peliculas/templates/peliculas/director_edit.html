@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Nuevo Director{% endblock %}
+
+{% block content %}
+    <h2>Nueva Director</h2>
+    <form method="POST" class="director-form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+{% endblock %}

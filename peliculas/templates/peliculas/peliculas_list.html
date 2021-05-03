@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Listado de peliculas{% endblock %}
+
+{% block content %}
+    <h5>AÑADIR PELÍCULA  &nbsp; <a href="{% url 'pelicula_nueva' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a></h5>
+    <br>
+    <ul>
+        {% for pelicula in peliculasOrdenadas %}
+            <li><a href="/peliculas/{{pelicula.pk}}"> {{ pelicula.titulo }} - {{ pelicula.fecha_publicacion|date:"Y" }} - {{ pelicula.director}}</li></a>
+        {% empty %}
+            <li>Aún no hay Películas.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

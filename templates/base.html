@@ -1,0 +1,43 @@
+{% load static %}
+<html lang="es">
+    <head>
+        <title>Biblioteca - {% block title %}Home{% endblock %}</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="{% static 'peliculas.css' %}"> 
+        <meta http-equiv="Expires" content="0">
+        <meta http-equiv="Last-Modified" content="0">
+        <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+        <meta http-equiv="Pragma" content="no-cache">
+      
+    </head>
+<body>
+    <ul class="sidebar-nav">
+        <div class="page-header">
+                <div> <h1><a href="/peliculas"><b>Biblioteca de Películas </b></a> <h3><a href="/director">&nbsp;Lista de Directores</a></h3>  </h1> </div>
+                {% if user.is_authenticated %}
+                    <span>
+                        <h5>User: {{ user.get_username }}</h5>
+                        <h5><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></h5>
+                    </span>
+                {%else %}
+                    <h5><a href="{% url 'login'%}?next={{request.path}}">Login</a></h5>
+                {%endif %}
+        </div>
+
+    
+        <div class ="content container">
+            <div class = "row">
+                <div class="col-md-8"> 
+                    {% block menu %}
+                    {% endblock %}
+                    <div id="content">
+                        {% block content %}{% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </ul>
+        
+</body>
+</html>
