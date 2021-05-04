@@ -4,21 +4,17 @@ from django.db import models
 from django.contrib.auth import get_user_model
 
 
-User = get_user_model()                                                              #Un usario puede tener varios comentarios 
+                                                           
 
 class Director(models.Model):
     biografia = models.TextField()
     fecha_nacimiento = models.DateField()
-    nombre = models.CharField(max_length=50)             #Relación 1:1 de comentario con usuario
-                                                                                      #Un comentario solo puede tener un usuario
+    nombre = models.CharField(max_length=50)             
+                                                                                      
     def __str__(self):
         return self.nombre
 
-    
-
- #   def __str__(self):
-  #      return f"{self.nombre} - {self.fecha_nacimiento}"                                                           
-
+                                                             
 
 
 

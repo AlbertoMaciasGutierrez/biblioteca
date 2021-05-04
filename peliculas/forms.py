@@ -1,5 +1,5 @@
 from django import forms
-#from cuentas.models import UsuarioRegister
+
 from .models import Pelicula, Director
 
 class PeliculaForm(forms.ModelForm):
@@ -17,5 +17,4 @@ class DirectorForm(forms.ModelForm):
 
 
 
-#class CustomUserForm(UsuarioRegister):
- #   pass       
+      

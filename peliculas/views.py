@@ -1,15 +1,13 @@
 import os
 from django.shortcuts import get_object_or_404, render,redirect
-from django.http import HttpResponse, HttpResponseRedirect
-from django.urls import reverse
-from django.views.generic import ListView, DetailView
+from django.views.generic import DetailView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import login, authenticate
 
 from .models import Pelicula, Director
-from .forms import PeliculaForm, DirectorForm  #CustomUserForm 
-#from cuentas.models import UsuarioRegister
+from .forms import PeliculaForm, DirectorForm   
+
 
 
 @login_required
@@ -65,12 +63,9 @@ def pelicula_editar(request,pk):
 @login_required
 def pelicula_eliminar(request, pk):
     post = get_object_or_404(Pelicula, pk=pk)
-   # if request.method == "DELETE":
     post.delete()
     return redirect('listadoPeliculas')
-    #else:
-     #   form = PeliculaForm(instance=post)
-    #return render(request, os.path.join("peliculas", "peliculas_edit.html"), {'form':form})
+    
 
 
 
@@ -103,7 +98,6 @@ def director_editar(request,pk):
 @login_required
 def director_eliminar(request, pk):
     post = get_object_or_404(Director, pk=pk)
-   # if request.method == "DELETE":
     post.delete()
     return redirect('listadoDirectores')
 
