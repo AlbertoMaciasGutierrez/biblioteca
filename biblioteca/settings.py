@@ -134,4 +134,8 @@ LOGIN_REDIRECT_URL = '/peliculas/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+#Esto es para las imágenes
 
+MEDIA_URL = '/media/'                           #URL pública a la base del directorio de almacenamiento
+
+MEDIA_ROOT = os.path.join(BASE_DIR,'peliculas/static/media/')   #Ruta completa donde Django almacenará, archivos o imágenes cargadas

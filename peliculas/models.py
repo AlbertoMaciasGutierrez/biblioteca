@@ -20,13 +20,31 @@ class Director(models.Model):
 
 
 class Pelicula(models.Model):
+    CATEGORIAS_CHOICES = [
+        ('Acción','Acción'),
+        ('Aventura','Aventura'),
+        ('Catástrofe','Catástrofe'),
+        ('Ciencia Ficción','Ciencia Ficción'),
+        ('Comedia','Comedia'),
+        ('Documental','Documental'),
+        ('Drama','Drama'),
+        ('Fantasía','Fantasía'),
+        ('Musical','Musical'),
+        ('Suspense','Suspense'),
+        ('Terror','Terror'),
+        ('Infantil','Infantil'),
+    ]
+
+
+
     fecha_publicacion = models.DateField()
     trailer = models.CharField(max_length=300)
     director = models.ForeignKey(Director, on_delete=models.CASCADE)
-    categoria = models.CharField(max_length=30)
+    categoria = models.CharField(max_length=30,choices=CATEGORIAS_CHOICES,default='Acción')
     titulo = models.CharField(max_length=50)
     sinopsis = models.TextField()
-
+    imagen = models.ImageField( upload_to = 'peliculas' ,verbose_name='Imagen')
+    
    
 
     def __repr__(self):

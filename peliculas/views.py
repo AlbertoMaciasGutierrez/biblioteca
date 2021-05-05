@@ -62,20 +62,9 @@ def pelicula_editar(request,pk):
 
 class PeliculaEliminar(LoginRequiredMixin,DeleteView):
     model = Pelicula
-    success_url = reverse_lazy('listadoPeliculas')
+    template_name = 'peliculas/pelicula_confirm_delete.html'
+    success_url = reverse_lazy('listadoPeliculas')         #Cuando elimina redirige a la lista de películas
     
-
-"""
-@login_required
-def pelicula_eliminar(request, pk):
-    post = get_object_or_404(Pelicula, pk=pk)
-    if request.metthod == "DELETE":
-        form = (request.DELETE, instance=delete)
-
-    post.delete()
-    return redirect('listadoPeliculas')
-    
-"""
 
 
 @login_required
@@ -104,17 +93,11 @@ def director_editar(request,pk):
     return render(request, os.path.join("directores", "director_edit.html"), {'form':form})
 
 
-"""@login_required
-def director_eliminar(request, pk):
-    post = get_object_or_404(Director, pk=pk)
-    post.delete()
-    return redirect('listadoDirectores')"""
-
 
 class DirectorEliminar(LoginRequiredMixin,DeleteView):
     model = Director
     template_name = 'directores/director_confirm_delete.html'
-    success_url = reverse_lazy('listadoDirectores')
+    success_url = reverse_lazy('listadoDirectores')           #Cuando elimina redirige a la lista de directores
 
 
 """def registro_usuario(request):

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}{{ object.titulo}}{% endblock %}
 
@@ -23,6 +24,7 @@
                     <p><b>Director:   </b><a href="/director/{{object.director.pk}}">{{ object.director}}</a> </p>
                     <p><b>Sinopsis:   </b>{{ object.sinopsis}}</p>
                     <p><a href="{{object.trailer}}">Trailer</a></p>
+                    <p><img class="img-responsive" src="{% static 'media/' %}{{object.imagen}} "></p>
                 </div>
             </div>
         </div>
