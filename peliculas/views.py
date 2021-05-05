@@ -1,10 +1,10 @@
 import os
 from django.shortcuts import get_object_or_404, render,redirect
-from django.views.generic import DetailView
+from django.views.generic import DetailView, DeleteView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import login, authenticate
-
+from django.urls import reverse_lazy
 from .models import Pelicula, Director
 from .forms import PeliculaForm, DirectorForm   
 
@@ -20,7 +20,7 @@ def listadoPeliculas(request):
 def listadoDirectores(request):
     directoresOrdenadas = Director.objects.order_by('fecha_nacimiento')[:5]            
     context = {"directoresOrdenados": directoresOrdenadas}
-    return render(request, os.path.join("peliculas", "director_list.html"), context=context)
+    return render(request, os.path.join("directores", "director_list.html"), context=context)
 
 
 class PeliculaDetalles(LoginRequiredMixin, DetailView):
@@ -30,7 +30,7 @@ class PeliculaDetalles(LoginRequiredMixin, DetailView):
    
 class DirectorDetalles(LoginRequiredMixin ,DetailView):
     model = Director
-    template_name = 'peliculas/director_detail.html'   
+    template_name = 'directores/director_detail.html'   
 
 @login_required
 def pelicula_nueva(request):
@@ -60,13 +60,22 @@ def pelicula_editar(request,pk):
     return render(request, os.path.join("peliculas", "peliculas_edit.html"), {'form':form})
 
 
+class PeliculaEliminar(LoginRequiredMixin,DeleteView):
+    model = Pelicula
+    success_url = reverse_lazy('listadoPeliculas')
+    
+
+"""
 @login_required
 def pelicula_eliminar(request, pk):
     post = get_object_or_404(Pelicula, pk=pk)
+    if request.metthod == "DELETE":
+        form = (request.DELETE, instance=delete)
+
     post.delete()
     return redirect('listadoPeliculas')
     
-
+"""
 
 
 @login_required
@@ -79,7 +88,7 @@ def director_nuevo(request):
             return redirect('detallesDirector',pk=post.pk)
     else:
         form = DirectorForm()
-    return render(request, os.path.join("peliculas", "director_edit.html"), {'form':form})
+    return render(request, os.path.join("directores", "director_edit.html"), {'form':form})
 
 @login_required
 def director_editar(request,pk):
@@ -92,14 +101,20 @@ def director_editar(request,pk):
             return redirect('detallesDirector', pk=post.pk)
     else:
         form = DirectorForm(instance=post)
-    return render(request, os.path.join("peliculas", "director_edit.html"), {'form':form})
+    return render(request, os.path.join("directores", "director_edit.html"), {'form':form})
 
 
-@login_required
+"""@login_required
 def director_eliminar(request, pk):
     post = get_object_or_404(Director, pk=pk)
     post.delete()
-    return redirect('listadoDirectores')
+    return redirect('listadoDirectores')"""
+
+
+class DirectorEliminar(LoginRequiredMixin,DeleteView):
+    model = Director
+    template_name = 'directores/director_confirm_delete.html'
+    success_url = reverse_lazy('listadoDirectores')
 
 
 """def registro_usuario(request):

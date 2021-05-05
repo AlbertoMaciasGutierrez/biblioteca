@@ -25,10 +25,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('peliculas/nueva',views.pelicula_nueva , name='pelicula_nueva'),
     path('peliculas/<int:pk>/editar/', views.pelicula_editar, name='pelicula_editar'),
-    path('peliculas/<int:pk>/eliminar/',views.pelicula_eliminar , name='pelicula_eliminar'),
+    #path('peliculas/<int:pk>/eliminar/',views.pelicula_eliminar , name='pelicula_eliminar'),
+    path('peliculas/<int:pk>/eliminar/',views.PeliculaEliminar.as_view(), name='pelicula_eliminar'),
     path('director/nuevo',views.director_nuevo , name='director_nuevo'),
     path('director/<int:pk>/editar/', views.director_editar, name='director_editar'),
-    path('director/<int:pk>/eliminar/', views.director_eliminar, name='director_eliminar'),
+    #path('director/<int:pk>/eliminar/', views.director_eliminar, name='director_eliminar'),
+    path('director/<int:pk>/eliminar/', views.DirectorEliminar.as_view(), name='director_eliminar'),
     #path('registro/',views.registro_usuario, name='registro_usuario'),
     path('accounts/', include('django.contrib.auth.urls')),                                      #Add Django site authentication urls (for login, logout, password management)
 ]
