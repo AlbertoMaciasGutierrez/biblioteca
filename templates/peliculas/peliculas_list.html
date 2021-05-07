@@ -6,7 +6,7 @@
     <h5>AÑADIR PELÍCULA  &nbsp; <a href="{% url 'pelicula_nueva' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a></h5>
     <br>
     <ul>
-        {% for pelicula in peliculasOrdenadas %}
+        {% for pelicula in pelicula_list %}
             <li><a href="/peliculas/{{pelicula.pk}}"> {{ pelicula.titulo }} - {{ pelicula.fecha_publicacion|date:"Y" }} - {{ pelicula.director}}</li></a>
         {% empty %}
             <li>Aún no hay Películas.</li>

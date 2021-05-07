@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Listado de actores{% endblock %}
+
+{% block content %}
+    <h5>AÑADIR ACTOR  &nbsp;<a href="{% url 'actor_nuevo' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a></h5>
+    <br>
+    <ul>
+        {% for actor in actor_list %}
+            <li><a href="/actores/{{actor.pk}}"> {{ actor.nombre }} - {{ actor.fecha_nacimiento|date:"Y" }}</li></a>
+        {% empty %}
+            <li>Aún no hay Actores.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

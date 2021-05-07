@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ object.nombre}}{% endblock %}
+
+{% block content %}
+    <div class="post">
+        <div class="page-header">
+            <h2><b><i>{{ object.nombre}}</i></b></h2>
+        </div>
+        <div class ="content container">
+            <div class = "row">
+                <div class="col-md-8"> 
+                    <p>
+                        <a class="btn btn-default" href="{% url 'actor_editar' pk=object.pk %}"><span class="glyphicon glyphicon-pencil"></span></a> 
+                        <a class="btn btn-default" href="{% url 'actor_eliminar' pk=object.pk %}"><span class="glyphicon glyphicon-remove"></span></a> 
+                    </p>
+                    <p><b>Fecha de Nacimiento:    </b>{{ object.fecha_nacimiento|date:"j F, Y"}}</p>
+                    <p><b>Biografía:    </b>{{ object.biografia}}</p>
+                    <p><img class="img-responsive" src="{% static 'media/' %}{{object.imagen}} " width="350" height="350"></p>
+                    <p><b>Películas:        </b>{{ object.peliculas}}</p>
+                </div>
+            </div>
+        </div>
+        
+
+    </div>
+
+    {% endblock %}

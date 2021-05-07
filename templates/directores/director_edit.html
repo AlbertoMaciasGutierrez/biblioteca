@@ -4,7 +4,7 @@
 
 {% block content %}
     <h2>Nuevo Director</h2>
-    <form method="POST" class="director-form">{% csrf_token %}  {%comment%} "{% csrf_token %}" Genera un token único por cada petición, de tal manera que nadie pueda falsificar
+    <form method="POST" class="director-form" enctype="multipart/form-data">{% csrf_token %}  {%comment%} "{% csrf_token %}" Genera un token único por cada petición, de tal manera que nadie pueda falsificar
                                                                 la solicitud para el sitio web ya que los falsificadores no poseerán este token, y la aplicación dará un error. 
                                                                 Bueno para cualquier plantilla que use formularios POST{% endcomment %}
          {{ form.as_p }}                                        {#} "{{form.as_p}}": renderizar formularios de Django como párrafo. Si quitamos esto no se representa el formulario{#} 

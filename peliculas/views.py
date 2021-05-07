@@ -1,26 +1,31 @@
 import os
 from django.shortcuts import get_object_or_404, render,redirect
-from django.views.generic import DetailView, DeleteView
+from django.views.generic import DetailView, DeleteView, CreateView, ListView 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import login, authenticate
-from django.urls import reverse_lazy
-from .models import Pelicula, Director
-from .forms import PeliculaForm, DirectorForm   
+from django.urls import reverse_lazy, reverse
+from .models import Pelicula, Director, Actor
+from .forms import PeliculaForm, DirectorForm, ActorForm   
 
 
 
-@login_required
-def listadoPeliculas(request):
-    peliculasOrdenadas = Pelicula.objects.order_by('fecha_publicacion')[:5]            
-    context = {"peliculasOrdenadas": peliculasOrdenadas}
-    return render(request, os.path.join("peliculas", "peliculas_list.html"), context=context)
+class PeliculaListado(LoginRequiredMixin, ListView):             #Para ListView el nombre genérico para tener "objects.all()" es: "nombreModeloEnMinusculas"_list
+    model = Pelicula                                             #Estos nombres se usan en los bucles for de los distintos templates de cada lista de objects
+    template_name = 'peliculas/peliculas_list.html'              #En este caso se llama "pelicula_list"
 
-@login_required
-def listadoDirectores(request):
-    directoresOrdenadas = Director.objects.order_by('fecha_nacimiento')[:5]            
-    context = {"directoresOrdenados": directoresOrdenadas}
-    return render(request, os.path.join("directores", "director_list.html"), context=context)
+
+class DirectorListado(LoginRequiredMixin, ListView):
+    model = Director
+    template_name = 'directores/director_list.html'
+
+
+
+class ActorListado(LoginRequiredMixin, ListView):
+    model = Actor
+    template_name = 'actores/actor_list.html'
+
+
 
 
 class PeliculaDetalles(LoginRequiredMixin, DetailView):
@@ -32,17 +37,21 @@ class DirectorDetalles(LoginRequiredMixin ,DetailView):
     model = Director
     template_name = 'directores/director_detail.html'   
 
-@login_required
-def pelicula_nueva(request):
-    if request.method == "POST":
-        form = PeliculaForm(request.POST)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.save()
-            return redirect('detallesPelicula', pk=post.pk)
-    else:
-        form = PeliculaForm()
-    return render(request, os.path.join("peliculas", "peliculas_edit.html"), {'form':form})
+class ActorDetalles(LoginRequiredMixin ,DetailView):
+    model = Actor
+    template_name = 'actores/actor_detail.html' 
+
+
+
+class PeliculaNueva(CreateView):
+    model = Pelicula
+    form_class = PeliculaForm
+    template_name = 'peliculas/peliculas_edit.html'
+    
+
+    def get_success_url(self):
+        return reverse('detallesPelicula',args=(self.object.id,))
+
 
 
 
@@ -50,7 +59,7 @@ def pelicula_nueva(request):
 def pelicula_editar(request,pk):
     post = get_object_or_404(Pelicula, pk=pk)
     if request.method == "POST":
-        form = PeliculaForm(request.POST, instance=post)
+        form = PeliculaForm(request.POST, request.FILES, instance=post)           #"request.FILES" : Es necesario para que se guarde la imagen, para que se pueda subir
         if form.is_valid():
             post = form.save(commit=False)
             post.save()
@@ -67,23 +76,23 @@ class PeliculaEliminar(LoginRequiredMixin,DeleteView):
     
 
 
-@login_required
-def director_nuevo(request):
-    if request.method == "POST":
-        form = DirectorForm(request.POST)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.save()
-            return redirect('detallesDirector',pk=post.pk)
-    else:
-        form = DirectorForm()
-    return render(request, os.path.join("directores", "director_edit.html"), {'form':form})
+
+
+class DirectorNuevo(CreateView):
+    model = Director
+    form_class = DirectorForm
+    template_name = 'directores/director_edit.html'
+    
+
+    def get_success_url(self):
+        return reverse('detallesDirector',args=(self.object.id,))
+
 
 @login_required
 def director_editar(request,pk):
     post = get_object_or_404(Director, pk=pk)
     if request.method == "POST":
-        form = DirectorForm(request.POST, instance=post)
+        form = DirectorForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
             post = form.save(commit=False)
             post.save()
@@ -98,6 +107,50 @@ class DirectorEliminar(LoginRequiredMixin,DeleteView):
     model = Director
     template_name = 'directores/director_confirm_delete.html'
     success_url = reverse_lazy('listadoDirectores')           #Cuando elimina redirige a la lista de directores
+
+
+
+
+class ActorNuevo(CreateView):
+    model = Actor
+    form_class = ActorForm
+    template_name = 'actores/actor_edit.html'
+    
+
+    def get_success_url(self):
+        return reverse('detallesActor',args=(self.object.id,))
+
+
+
+@login_required
+def actor_editar(request,pk):
+    post = get_object_or_404(Actor, pk=pk)
+    if request.method == "POST":
+        form = ActorForm(request.POST, request.FILES, instance=post)           #"request.FILES" : Es necesario para que se guarde la imagen, para que se pueda subir
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()
+            return redirect('detallesActor', pk=post.pk)
+    else:
+        form = ActorForm(instance=post)
+    return render(request, os.path.join("actores", "actor_edit.html"), {'form':form})
+
+
+class ActorEliminar(LoginRequiredMixin,DeleteView):
+    model = Actor
+    template_name = 'actores/actor_confirm_delete.html'
+    success_url = reverse_lazy('listadoActores')         #Cuando elimina redirige a la lista de películas
+
+
+
+
+
+
+
+
+
+
+
 
 
 """def registro_usuario(request):

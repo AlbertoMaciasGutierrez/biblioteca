@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}{{ object.nombre}}{% endblock %}
+
+{% block content %}
+    <form method="post">{% csrf_token %}
+        <p>¿Desea eliminar el Actor "{{ object.nombre}}"?</p>
+        <br>
+        <p>
+            <input class="btn btn-primary" type="submit" value="Confirmar">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="btn btn-danger" href="{% url 'detallesActor' pk=object.pk %}" >Cancelar</a>
+        </p>
+    </form>
+
+{% endblock %}

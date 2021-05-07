@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}{{ object.nombre}}{% endblock %}
 
@@ -16,6 +17,7 @@
                     </p>
                     <p><b>Fecha de Nacimiento:    </b>{{ object.fecha_nacimiento|date:"j F, Y"}}</p>
                     <p><b>Biografía:    </b>{{ object.biografia}}</p>
+                    <p><img class="img-responsive" src="{% static 'media/' %}{{object.imagen}} " width="350" height="350"></p>
                 </div>
             </div>
         </div>
