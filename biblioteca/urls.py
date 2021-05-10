@@ -22,18 +22,18 @@ urlpatterns = [
     path('peliculas/', views.PeliculaListado.as_view(), name="listadoPeliculas"),
     path('director/', views.DirectorListado.as_view(), name ="listadoDirectores"),
     path('director/<int:pk>/', views.DirectorDetalles.as_view(), name="detallesDirector"),
-    path('actores/', views.ActorListado.as_view(), name ="listadoActores"),
+    path('actores/', views.ActorListado.as_view(), name ="listadoActores"), 
     path('actores/<int:pk>/', views.ActorDetalles.as_view(), name="detallesActor"),
     path('admin/', admin.site.urls),
     path('peliculas/nueva',views.PeliculaNueva.as_view() , name='pelicula_nueva'),
-    path('peliculas/<int:pk>/editar/', views.pelicula_editar, name='pelicula_editar'),
+    path('peliculas/<int:pk>/editar/', views.PeliculaEditar.as_view(), name='pelicula_editar'),
     path('peliculas/<int:pk>/eliminar/',views.PeliculaEliminar.as_view(), name='pelicula_eliminar'),
     path('director/nuevo',views.DirectorNuevo.as_view() , name='director_nuevo'),
-    path('director/<int:pk>/editar/', views.director_editar, name='director_editar'),
+    path('director/<int:pk>/editar/', views.DirectorEditar.as_view(), name='director_editar'),
     path('director/<int:pk>/eliminar/', views.DirectorEliminar.as_view(), name='director_eliminar'),
-    path('actores/nuevo',views.ActorNuevo.as_view() , name='actor_nuevo'),                                    #
-    path('actores/<int:pk>/editar/', views.actor_editar, name='actor_editar'),                       #
-    path('actores/<int:pk>/eliminar/', views.ActorEliminar.as_view(), name='actor_eliminar'),        #
+    path('actores/nuevo',views.ActorNuevo.as_view() , name='actor_nuevo'),                                    
+    path('actores/<int:pk>/editar/', views.ActorEditar.as_view(), name='actor_editar'),                       
+    path('actores/<int:pk>/eliminar/', views.ActorEliminar.as_view(), name='actor_eliminar'),        
     #path('registro/',views.registro_usuario, name='registro_usuario'),
     path('accounts/', include('django.contrib.auth.urls')),                                      #Add Django site authentication urls (for login, logout, password management)
 ]

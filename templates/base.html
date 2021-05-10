@@ -14,15 +14,20 @@
 <body>
     <ul class="sidebar-nav">
         <div class="page-header">
-                <div> <h1><a href="/peliculas"><b>Biblioteca de Películas </b></a> <h3><a href="/director">&nbsp;Lista de Directores</a></h3>  </h1> </div>
-                {% if user.is_authenticated %}
-                    <span>
-                        <h5>User: {{ user.get_username }}</h5>
-                        <h5><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></h5>
-                    </span>
-                {%else %}
-                    <h5><a href="{% url 'login'%}?next={{request.path}}">Login</a></h5>
-                {%endif %}
+      
+            {% if user.is_authenticated %}
+                <h1><a href="/peliculas"><b>Biblioteca de Películas </b></a></h1>    
+                <h3>&nbsp;&nbsp;<a href="/director"><b>Directores</b></a></h3>
+                <h3>&nbsp;&nbsp;&nbsp;<a href="/actores"><b>Actores</b></a></h3> 
+                    
+                <span>
+                    <h5>User: {{ user.get_username }}</h5>
+                    <h5><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></h5>
+                </span>
+            {%else %}
+                <h1><b>Biblioteca de Películas </b></h1> 
+                <h5><a href="{% url 'login'%}?next={{request.path}}">Login</a></h5>
+            {%endif %}
         </div>
 
     

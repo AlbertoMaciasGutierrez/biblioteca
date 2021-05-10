@@ -17,8 +17,16 @@
                     </p>
                     <p><b>Fecha de Nacimiento:    </b>{{ object.fecha_nacimiento|date:"j F, Y"}}</p>
                     <p><b>Biografía:    </b>{{ object.biografia}}</p>
-                    <p><img class="img-responsive" src="{% static 'media/' %}{{object.imagen}} " width="350" height="350"></p>
-                    <p><b>Películas:        </b>{{ object.peliculas}}</p>
+                    <p><img class="img-responsive" src="{% static 'media/' %}{{object.imagen}} " width="300" height="300"></p>
+                    <p>
+                        <b>Peliculas:  </b>
+                        {% for p in object.peliculas.all %}
+                            &nbsp;&nbsp;<a href="/peliculas/{{p.pk}}"> {{ p.titulo }}</a> 
+                        {% empty %}
+                            &nbsp;&nbsp;
+                            Actor sin Películas.
+                        {% endfor %}
+                    </p>
                 </div>
             </div>
         </div>

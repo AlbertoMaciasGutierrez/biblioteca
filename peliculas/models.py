@@ -84,10 +84,12 @@ class Actor(models.Model):
 
 
     def __str__(self):
-        return self.peliculas.titulo
+        return self.nombre
 
     
-
+    def nombres_peliculas(self): 
+        return ', '.join([a.titulo for a in self.peliculas.all()]) 
+    #admin_names.short_description = "Admin Names"
 
     class Meta:
         verbose_name = "actor"
