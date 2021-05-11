@@ -6,8 +6,19 @@ class PeliculaForm(forms.ModelForm):
 
     class Meta:
         model = Pelicula
-        fields = ('titulo','fecha_publicacion','trailer','categoria','director','sinopsis','imagen',)
-      
+        fields = ('titulo','fecha_publicacion','trailer','categoria','director','sinopsis','imagen','actores')
+
+    #nombre = forms.TextInput()
+    #fecha_nacimiento = forms.DateInput()
+    #biografia = forms.TextInput()
+    #imagen = forms.ClearableFileInput()
+
+
+
+    actores = forms.ModelMultipleChoiceField(
+        queryset=Actor.objects.all(),
+        widget=forms.CheckboxSelectMultiple
+    ) 
 
 
 class DirectorForm(forms.ModelForm):
@@ -21,17 +32,11 @@ class ActorForm(forms.ModelForm):
 
     class Meta:
         model = Actor
-        fields = ('nombre','fecha_nacimiento','biografia','imagen','peliculas',)
+        fields = ('nombre','fecha_nacimiento','biografia','imagen',)
 
-    nombre = forms.TextInput()
-    fecha_nacimiento = forms.DateInput()
-    biografia = forms.TextInput()
-    imagen = forms.ClearableFileInput()
+ 
 
-    peliculas = forms.ModelMultipleChoiceField(
-        queryset=Pelicula.objects.all(),
-        widget=forms.CheckboxSelectMultiple
-    )
+
 
 
       

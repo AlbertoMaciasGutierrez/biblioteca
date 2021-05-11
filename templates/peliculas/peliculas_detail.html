@@ -25,6 +25,15 @@
                     <p><b>Sinopsis:   </b>{{ object.sinopsis}}</p>
                     <p><a href="{{object.trailer}}">Trailer</a></p>
                     <p><img class="img-responsive" src="{% static 'media/' %}{{object.imagen}} " width="300" height="300"></p>
+                    <p>
+                        <b>Actores:  </b>
+                        {% for a in object.actores.all %}
+                            &nbsp;&nbsp;<a href="/actores/{{a.pk}}"> {{ a.nombre }}</a> 
+                        {% empty %}
+                            &nbsp;&nbsp;
+                            No hay actores guardados para esta película
+                        {% endfor %}
+                    </p>
                 </div>
             </div>
         </div>

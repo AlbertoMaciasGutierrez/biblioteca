@@ -22,6 +22,25 @@ class Director(models.Model):
         ordering = ['fecha_nacimiento']
                                                              
 
+class Actor(models.Model):
+    
+    biografia = models.TextField()
+    fecha_nacimiento = models.DateField()
+    nombre = models.CharField(max_length=50)
+    imagen = models.ImageField( upload_to = 'actores' ,verbose_name='Imagen', blank=True)   
+
+
+
+    def __str__(self):
+        return self.nombre
+
+
+    class Meta:
+        verbose_name = "actor"
+        verbose_name_plural = "actores"
+        ordering = ['-fecha_nacimiento']
+
+
 
 
 
@@ -51,8 +70,8 @@ class Pelicula(models.Model):
     titulo = models.CharField(max_length=50)
     sinopsis = models.TextField()
     imagen = models.ImageField( upload_to = 'peliculas' ,verbose_name='Imagen', blank=True)
+    actores = models.ManyToManyField(Actor, related_name='actores', blank=True)                          #"reloated_name =" : Parámetro para renombrar la relación
     
-   
 
     def __repr__(self):
         return self.__str__()
@@ -73,26 +92,5 @@ class Pelicula(models.Model):
 
 
 
-class Actor(models.Model):
-    
-    biografia = models.TextField()
-    fecha_nacimiento = models.DateField()
-    nombre = models.CharField(max_length=50)
-    peliculas = models.ManyToManyField(Pelicula, related_name='peliculas', blank=True)                          #"reloated_name =" : Parámetro para renombrar la relación
-    imagen = models.ImageField( upload_to = 'actores' ,verbose_name='Imagen', blank=True)   
 
-
-
-    def __str__(self):
-        return self.nombre
-
-    
-    def nombres_peliculas(self): 
-        return ', '.join([a.titulo for a in self.peliculas.all()]) 
-    #admin_names.short_description = "Admin Names"
-
-    class Meta:
-        verbose_name = "actor"
-        verbose_name_plural = "actores"
-        ordering = ['-fecha_nacimiento']
 
