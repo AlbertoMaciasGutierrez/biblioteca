@@ -12,8 +12,8 @@
             <div class = "row">
                 <div class="col-md-8"> 
                     <p>
-                        <a class="btn btn-default" href="{% url 'director_editar' pk=object.pk %}"><span class="glyphicon glyphicon-pencil"></span></a> 
-                        <a class="btn btn-default" href="{% url 'director_eliminar' pk=object.pk %}"><span class="glyphicon glyphicon-remove"></span></a> 
+                        <a class="btn btn-warning" href="{% url 'director_editar' pk=object.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp; 
+                        <a class="btn btn-danger" href="{% url 'director_eliminar' pk=object.pk %}"><span class="glyphicon glyphicon-remove"></span></a> &nbsp;
                     </p>
                     <p><b>Fecha de Nacimiento:    </b>{{ object.fecha_nacimiento|date:"j F, Y"}}</p>
                     <p><b>Biografía:    </b>{{ object.biografia}}</p>

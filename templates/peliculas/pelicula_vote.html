@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Votacion - {{peli.titulo}}{% endblock %}
+
+{% block content %}
+    <h2>Elija una valoración para la película "{{peli.titulo}}"</h2>
+    <br>
+    <form method="POST" class="pelicula-vote-form" >{% csrf_token %}  {%comment%} "{% csrf_token %}": Genera un token único por cada petición, de tal manera que nadie pueda falsificar
+                                                                la solicitud para el sitio web ya que los falsificadores no poseerán este token, y la aplicación dará un error. 
+                                                                Bueno para cuenctype="multipart/form-data"alquier plantilla que use formularios POST{% endcomment %}
+        {{ form.as_p }}                                         {#} "{{form.as_p}}": renderizar formularios de Django como párrafo. Si quitamos esto no se representa el formulario{#} 
+        <p>
+            <input class="btn btn-primary" type="submit" value="Guardar valoración">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="btn btn-danger" href="{% url 'detallesPelicula' pk=peli.pk %}" >Cancelar</a>
+        </p>
+    </form>
+{% endblock %}

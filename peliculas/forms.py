@@ -6,7 +6,7 @@ class PeliculaForm(forms.ModelForm):
 
     class Meta:
         model = Pelicula
-        fields = ('titulo','fecha_publicacion','trailer','categoria','director','sinopsis','imagen','actores')
+        fields = ('titulo','fecha_publicacion','trailer','categoria','director','sinopsis','imagen','actores',)
 
     #nombre = forms.TextInput()
     #fecha_nacimiento = forms.DateInput()
@@ -19,6 +19,12 @@ class PeliculaForm(forms.ModelForm):
         queryset=Actor.objects.all(),
         widget=forms.CheckboxSelectMultiple
     ) 
+
+class VotacionForm(forms.ModelForm):
+    
+    class Meta:
+        model = Pelicula
+        fields = ('valoracion',)
 
 
 class DirectorForm(forms.ModelForm):

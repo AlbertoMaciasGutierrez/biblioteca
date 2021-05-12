@@ -6,7 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import login, authenticate
 from django.urls import reverse_lazy, reverse
 from .models import Pelicula, Director, Actor
-from .forms import PeliculaForm, DirectorForm, ActorForm   
+from .forms import PeliculaForm, DirectorForm, ActorForm, VotacionForm   
 
 
 
@@ -31,6 +31,7 @@ class ActorListado(LoginRequiredMixin, ListView):
 class PeliculaDetalles(LoginRequiredMixin, DetailView):
     model = Pelicula
     template_name = 'peliculas/peliculas_detail.html'
+
 
    
 class DirectorDetalles(LoginRequiredMixin, DetailView):
@@ -133,11 +134,26 @@ class ActorEliminar(LoginRequiredMixin,DeleteView):
     success_url = reverse_lazy('listadoActores')         #Cuando elimina redirige a la lista de películas
 
 
+@login_required
+def valoracion(request,pk):
+    peli = get_object_or_404(Pelicula, pk=pk)
 
+    if request.method =="POST":
+        form = VotacionForm(request.POST,request.FILES, instance=peli)
+        if form.is_valid():
+            peli = form.save(commit=False)                     #Devuelve el objeto que todavia no está guardado en la base de datos
+            peli.numVotos += 1
+            numVotos = peli.numVotos
+            peli.valoracionTotal += peli.valoracion
+            total =  peli.valoracionTotal
+            peli.valoracionMedia = total/numVotos
+            peli.save()
 
+            return redirect('detallesPelicula', pk=peli.pk)
 
-
-
+    else:
+        form = VotacionForm(instance = peli)
+        return render(request, os.path.join("peliculas", "pelicula_vote.html"),{'form':form, 'peli':peli})
 
 
 

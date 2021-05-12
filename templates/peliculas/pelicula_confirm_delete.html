@@ -3,9 +3,9 @@
 {% block title %}{{ object.titulo}}{% endblock %}
 
 {% block content %}
-    <form method="post">{% csrf_token %}
-        <p>¿Desea eliminar la Película "{{ object.titulo}}"?</p>
-        <br>
+    <h2>¿Desea eliminar la Película "<b>{{ object.titulo}}</b>"?</h2>
+    <br>
+    <form method="POST" class="wish-delete">{% csrf_token %}
         <p>
             <input class="btn btn-primary" type="submit" value="Confirmar">
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

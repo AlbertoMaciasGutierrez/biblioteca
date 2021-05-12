@@ -15,25 +15,32 @@
             <div class = "row">
                 <div class="col-md-8">
                     <p>
-                        <a class="btn btn-default" href="{% url 'pelicula_editar' pk=object.pk %}"><span class="glyphicon glyphicon-pencil"></span></a> 
-                        <a class="btn btn-default" href="{% url 'pelicula_eliminar' pk=object.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
-                        
+                        <a class="btn btn-warning" href="{% url 'pelicula_editar' pk=object.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;
+                        <a class="btn btn-danger" href="{% url 'pelicula_eliminar' pk=object.pk %}"><span class="glyphicon glyphicon-remove"></span></a>&nbsp;
+                        <a class="btn btn-success" href="{% url 'votacionPelicula' pk=object.pk %}"><span class="glyphicon glyphicon-heart-empty"></span></a>   
+                         
                     </p>
                     <p><b>Fecha:   </b>{{ object.fecha_publicacion|date:"j F, Y"}}</p>
                     <p><b>Categoría:   </b>{{ object.categoria}}</p>
                     <p><b>Director:   </b><a href="/director/{{object.director.pk}}">{{ object.director}}</a> </p>
                     <p><b>Sinopsis:   </b>{{ object.sinopsis}}</p>
-                    <p><a href="{{object.trailer}}">Trailer</a></p>
+                    
                     <p><img class="img-responsive" src="{% static 'media/' %}{{object.imagen}} " width="300" height="300"></p>
+                    <br>
+                    
                     <p>
                         <b>Actores:  </b>
                         {% for a in object.actores.all %}
-                            &nbsp;&nbsp;<a href="/actores/{{a.pk}}"> {{ a.nombre }}</a> 
+                            &nbsp;&nbsp;<a href="/actores/{{a.pk}}">{{ a.nombre }}</a> 
                         {% empty %}
                             &nbsp;&nbsp;
                             No hay actores guardados para esta película
                         {% endfor %}
                     </p>
+                    <p><b>Valoración:   </b>{{object.valoracionMedia}} &nbsp;</p>
+
+                    <p><a href="{{object.trailer}}">Trailer</a></p>
+
                 </div>
             </div>
         </div>

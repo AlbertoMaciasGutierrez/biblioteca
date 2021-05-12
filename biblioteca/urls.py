@@ -28,6 +28,7 @@ urlpatterns = [
     path('peliculas/nueva',views.PeliculaNueva.as_view() , name='pelicula_nueva'),
     path('peliculas/<int:pk>/editar/', views.PeliculaEditar.as_view(), name='pelicula_editar'),
     path('peliculas/<int:pk>/eliminar/',views.PeliculaEliminar.as_view(), name='pelicula_eliminar'),
+    path('peliculas/<int:pk>/valorar/', views.valoracion , name='votacionPelicula'),
     path('director/nuevo',views.DirectorNuevo.as_view() , name='director_nuevo'),
     path('director/<int:pk>/editar/', views.DirectorEditar.as_view(), name='director_editar'),
     path('director/<int:pk>/eliminar/', views.DirectorEliminar.as_view(), name='director_eliminar'),

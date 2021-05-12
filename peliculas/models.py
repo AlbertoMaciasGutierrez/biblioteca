@@ -61,6 +61,20 @@ class Pelicula(models.Model):
         ('Infantil','Infantil'),
     ]
 
+    VALORACION_CHOICES = [
+        (0.0,0),
+        (1.0,1),
+        (2.0,2),
+        (3.0,3),
+        (4.0,4),
+        (5.0,5),
+        (6.0,6),
+        (7.0,7),
+        (8.0,8),
+        (9.0,9),
+        (10.0,10),
+    ]
+    
 
 
     fecha_publicacion = models.DateField()
@@ -71,7 +85,10 @@ class Pelicula(models.Model):
     sinopsis = models.TextField()
     imagen = models.ImageField( upload_to = 'peliculas' ,verbose_name='Imagen', blank=True)
     actores = models.ManyToManyField(Actor, related_name='actores', blank=True)                          #"reloated_name =" : Parámetro para renombrar la relación
-    
+    valoracion = models.DecimalField(choices=VALORACION_CHOICES, default=0.0, decimal_places=1, max_digits=3)
+    valoracionMedia =models.DecimalField(default=0.0, decimal_places=1, max_digits=3)
+    numVotos = models.IntegerField(default=0)
+    valoracionTotal = models.DecimalField(default=0.0, decimal_places=1, max_digits=10)
 
     def __repr__(self):
         return self.__str__()
@@ -79,9 +96,10 @@ class Pelicula(models.Model):
     def __str__(self):
         return f"{self.titulo} - {self.fecha_publicacion.strftime('%Y')} - {self.director}"
 
-    @property
-    def only_year(self):
-        return self.fecha_publicacion.strftime('%Y')
+
+
+
+
 
 
     class Meta:

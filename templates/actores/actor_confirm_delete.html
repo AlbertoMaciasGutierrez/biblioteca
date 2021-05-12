@@ -3,9 +3,9 @@
 {% block title %}{{ object.nombre}}{% endblock %}
 
 {% block content %}
-    <form method="post">{% csrf_token %}
-        <p>¿Desea eliminar el Actor "{{ object.nombre}}"?</p>
-        <br>
+    <h2>¿Desea eliminar el Actor " <b>{{ object.nombre}}</b>"?</h2>
+    <br>
+    <form method="POST" class="wish-delete">{% csrf_token %}
         <p>
             <input class="btn btn-primary" type="submit" value="Confirmar">
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

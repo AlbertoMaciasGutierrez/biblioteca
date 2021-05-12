@@ -76,3 +76,10 @@ h1, h2, h3, h4, h5 {
     -webkit-text-stroke: 1.2px rgb(248, 248, 248);
 }
 
+.pelicula-vote-form {
+    margin-left: 60px;
+}
+
+.wish-delete{
+    margin-left: 20px;
+}
