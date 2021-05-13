@@ -8,6 +8,11 @@
                                                                 la solicitud para el sitio web ya que los falsificadores no poseerán este token, y la aplicación dará un error. 
                                                                 Bueno para cualquier plantilla que use formularios POST{% endcomment %}
          {{ form.as_p }}                                        {#} "{{form.as_p}}": renderizar formularios de Django como párrafo. Si quitamos esto no se representa el formulario{#} 
-        <button type="submit" class="save btn btn-default">Save</button>
+        <br><br>
+        <p>
+            <input class="btn btn-primary" type="submit" value="Guardar">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="btn btn-danger" href="{% url 'detallesActor' pk=object.pk %}" >Cancelar</a>
+        </p>
     </form>
 {% endblock %}

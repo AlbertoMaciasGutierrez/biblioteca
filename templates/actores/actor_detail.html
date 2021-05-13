@@ -15,9 +15,19 @@
                         <a class="btn btn-warning" href="{% url 'actor_editar' pk=object.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp; 
                         <a class="btn btn-danger" href="{% url 'actor_eliminar' pk=object.pk %}"><span class="glyphicon glyphicon-remove"></span></a>&nbsp; 
                     </p>
-                    <p><b>Fecha de Nacimiento:    </b>{{ object.fecha_nacimiento|date:"j F, Y"}}</p>
-                    <p><b>Biografía:    </b>{{ object.biografia}}</p>
-                    <p><img class="img-responsive" src="{% static 'media/' %}{{object.imagen}} " width="300" height="300"></p>
+                    
+                    <div class="media">
+                        <img class="media-object" src="{% static 'media/' %}{{object.imagen}} " width="115" height="115">                    </div>
+                    <br>
+                    <p><b>Fecha de Nacimiento:    &nbsp;&nbsp;</b>{{ object.fecha_nacimiento|date:"j F, Y"}}</p>
+                    {% if object.pais %}
+                        <p><b>Pais:   &nbsp;&nbsp;</b>{{object.pais}}</p>
+                    {% else %}    
+                        <p><b>Pais:   &nbsp;&nbsp;</b>Desconocido</p>
+                    {% endif %}
+                    <p><b>Biografía:    &nbsp;&nbsp;</b>{{ object.biografia}}</p>
+                    <br><br>
+                    
 
                 </div>
             </div>

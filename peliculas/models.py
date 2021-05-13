@@ -2,12 +2,57 @@ import datetime
 
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
+PAIS_CHOICES =[
+        ('Alemania','Alemania'),
+        ('Andorra','Andorra'),
+        ('Arabia Saudí','Arabia Saudí'),
+        ('Argentina','Argentina'),
+        ('Austria','Austria'),
+        ('Australia','Australia'),
+        ('Bélgica','Bélgica'),
+        ('Brasil','Brasil'),
+        ('Canadá','Canadá'),
+        ('China','China'),
+        ('Colombia','Colombia'),
+        ('Corea del Sur','Corea del Sur'),
+        ('Cuba','Cuba'),
+        ('Egipto','Egipto'),
+        ('Emiratos Árabes Unidos','Emiratos Árabes Unidos'),
+        ('España','España'),
+        ('Estados Unidos','Estados Unidos'),
+        ('Finlandia','Finlandia'),
+        ('Francia','Francia'),
+        ('Grecia','Grecia'),
+        ('Hong Kong','Hong Kong'),
+        ('Indonesia','Indonesia'),
+        ('India','India'),
+        ('Irán','Irán'),
+        ('Italia','Italia'),
+        ('Japón','Japón'),
+        ('México','México'),
+        ('Malsia','Malsia'),
+        ('Nigeria','Nigeria'),
+        ('Países Bajos','Países Bajos'),
+        ('Polonia','Polonia'),
+        ('Portugal','Portugal'),
+        ('Reino Unido','Reino Unido'),
+        ('Rusia','Rusia'),
+        ('Singapur','Singapur'),
+        ('Suiza','Suiza'),
+        ('Taiwán','Taiwán'),
+        ('Turquía','Turquía'),
+        ('Ucrania','Ucrania'),
+    ]
                                                            
 
 class Director(models.Model):
     
+
+
+    pais = models.CharField(choices=PAIS_CHOICES, null=True,max_length=70, blank=True)
     biografia = models.TextField()
     fecha_nacimiento = models.DateField()
     nombre = models.CharField(max_length=50)
@@ -24,6 +69,7 @@ class Director(models.Model):
 
 class Actor(models.Model):
     
+    pais = models.CharField(choices=PAIS_CHOICES, null=True,max_length=70,blank=True)
     biografia = models.TextField()
     fecha_nacimiento = models.DateField()
     nombre = models.CharField(max_length=50)
@@ -74,11 +120,13 @@ class Pelicula(models.Model):
         (9.0,9),
         (10.0,10),
     ]
-    
+
 
 
     fecha_publicacion = models.DateField()
-    trailer = models.CharField(max_length=300)
+    trailer = models.URLField(max_length=300)
+    pais = models.CharField(choices=PAIS_CHOICES, null=True,max_length=70, blank=True)
+    duracion = models.IntegerField(default=90, validators=[MaxValueValidator(300), MinValueValidator(1)])
     director = models.ForeignKey(Director, on_delete=models.CASCADE)
     categoria = models.CharField(max_length=30,choices=CATEGORIAS_CHOICES,default='Acción')
     titulo = models.CharField(max_length=50)
@@ -96,7 +144,7 @@ class Pelicula(models.Model):
     def __str__(self):
         return f"{self.titulo} - {self.fecha_publicacion.strftime('%Y')} - {self.director}"
 
-
+    
 
 
 

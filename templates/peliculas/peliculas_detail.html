@@ -6,41 +6,66 @@
 {% block content %}
 
     <div class="post">
-        <div class="page-header">
+        
+        <div class="page-header b">
             <h2><b><i>{{ object.titulo }}</i></b></h2>
         </div>
+
         <div class ="content container">
          
 
             <div class = "row">
                 <div class="col-md-8">
-                    <p>
-                        <a class="btn btn-warning" href="{% url 'pelicula_editar' pk=object.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;
-                        <a class="btn btn-danger" href="{% url 'pelicula_eliminar' pk=object.pk %}"><span class="glyphicon glyphicon-remove"></span></a>&nbsp;
-                        <a class="btn btn-success" href="{% url 'votacionPelicula' pk=object.pk %}"><span class="glyphicon glyphicon-heart-empty"></span></a>   
-                         
-                    </p>
-                    <p><b>Fecha:   </b>{{ object.fecha_publicacion|date:"j F, Y"}}</p>
-                    <p><b>Categoría:   </b>{{ object.categoria}}</p>
-                    <p><b>Director:   </b><a href="/director/{{object.director.pk}}">{{ object.director}}</a> </p>
-                    <p><b>Sinopsis:   </b>{{ object.sinopsis}}</p>
                     
-                    <p><img class="img-responsive" src="{% static 'media/' %}{{object.imagen}} " width="300" height="300"></p>
-                    <br>
+                        <p>
+                            <a class="btn btn-warning" href="{% url 'pelicula_editar' pk=object.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;
+                            <a class="btn btn-danger" href="{% url 'pelicula_eliminar' pk=object.pk %}"><span class="glyphicon glyphicon-remove"></span></a>&nbsp;
+                            <a class="btn btn-success" href="{% url 'votacionPelicula' pk=object.pk %}"><span class="glyphicon glyphicon-heart-empty"></span></a>   
+                            
+                        </p>
+                        <p><b>Fecha:  &nbsp;&nbsp;</b>{{ object.fecha_publicacion|date:"j F, Y"}}</p>
+                        <p><b>Categoría:   &nbsp;&nbsp;</b>{{ object.categoria}}</p>
+                        
+                        {% if object.pais %}
+                            <p><b>Pais:   &nbsp;&nbsp;</b>{{ object.pais}}</p>
+                        {% else %}    
+                            <p><b>Pais:   &nbsp;&nbsp;</b>Desconocido</p>
+                        {% endif %}
+                            
+                        </p>
+                        <p><b>Duración:   &nbsp;&nbsp;</b>{{ object.duracion}} min.</p>
+                        <p><b>Director:   &nbsp;&nbsp;</b><a href="/director/{{object.director.pk}}">{{ object.director}}</a> </p>
+                        <p><b>Sinopsis:   &nbsp;&nbsp;</b>{{ object.sinopsis}}</p>
+                        
+                        <br>
+                        
+                        <p>
+                            <b>Reparto:  </b>
+                            {% for a in object.actores.all %}
+                                &nbsp;&nbsp;<a href="/actores/{{a.pk}}">{{ a.nombre }}</a> 
+                            {% empty %}
+                                &nbsp;&nbsp;
+                                No hay actores guardados para esta película
+                            {% endfor %}
+                        </p>
+                        <br>
+                        <p><a href="{{object.trailer}}">Trailer</a></p> 
+                        
+                        <div class="media">
+                            <img class="media-object" src="{% static 'media/' %}{{object.imagen}} " width="300" height="300">
+                        </div>
+                        
+                        <br>
+                        <p>
+                            <b>Valoración:   &nbsp;&nbsp;</b><span class="label label-primary">{{object.valoracionMedia}}</span> &nbsp;&nbsp;&nbsp;
+                            <span class="label label-info">{{object.numVotos}} votos</span>    
+                        </p>
+                        
+                        <br><br>
+                        {% comment "" %} <div class="embed-responsive embed-responsive-16by9">
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/Qd0_qYIhMZA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>  {% endcomment %} 
                     
-                    <p>
-                        <b>Actores:  </b>
-                        {% for a in object.actores.all %}
-                            &nbsp;&nbsp;<a href="/actores/{{a.pk}}">{{ a.nombre }}</a> 
-                        {% empty %}
-                            &nbsp;&nbsp;
-                            No hay actores guardados para esta película
-                        {% endfor %}
-                    </p>
-                    <p><b>Valoración:   </b>{{object.valoracionMedia}} &nbsp;</p>
-
-                    <p><a href="{{object.trailer}}">Trailer</a></p>
-
                 </div>
             </div>
         </div>
