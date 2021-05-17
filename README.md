@@ -17,7 +17,7 @@ La página principal es: http://127.0.0.1:8000/peliculas
 ![ScreemShot](https://raw.githubusercontent.com/AlbertoMaciasGutierrez/biblioteca/main/img/ListaDirectores.PNG)
 
 ## Pelicula
-![ScreemShot](https://raw.githubusercontent.com/AlbertoMaciasGutierrez/biblioteca/main/img/Pelicula.PNG)
+![ScreemShot](https://raw.githubusercontent.com/AlbertoMaciasGutierrez/biblioteca/main/img/Pelicula.png)
 
 
 
