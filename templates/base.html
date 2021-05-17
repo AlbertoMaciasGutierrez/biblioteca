@@ -26,7 +26,8 @@
                 </span>
             {%else %}
                 <h1><b>Biblioteca de Películas </b></h1> 
-                <h5><a href="{% url 'login'%}?next={{request.path}}">Login</a></h5>
+                <h5><a href="{% url 'login'%}?next={{request.path}}">Iniciar Sesión</a> | <a href="{% url 'registro_usuario'%}?next={{request.path}}">Registrar</a></h5>
+                
             {%endif %}
         </div>
 

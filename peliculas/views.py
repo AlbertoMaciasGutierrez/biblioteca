@@ -1,4 +1,8 @@
 import os
+from django.contrib import messages
+from django.http import request
+from cuentas.models import Usuario
+from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render,redirect
 from django.views.generic import DetailView, DeleteView, CreateView, ListView, UpdateView 
 from django.contrib.auth.decorators import login_required
@@ -6,7 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import login, authenticate
 from django.urls import reverse_lazy, reverse
 from .models import Pelicula, Director, Actor
-from .forms import PeliculaForm, DirectorForm, ActorForm, VotacionForm   
+from .forms import PeliculaForm, DirectorForm, ActorForm, VotacionForm, RegistroForm  
 
 
 
@@ -157,24 +161,21 @@ def valoracion(request,pk):
 
 
 
+class RegistroUsuario(CreateView):
+    model = Usuario
+    template_name = 'registration/registrar.html'
+    form_class = RegistroForm
+
+    def form_valid(self, form):
+        '''
+        En este parte, si el formulario es valido guardamos lo que se obtiene de él y usamos authenticate para que el usuario incie sesión luego de haberse registrado y lo redirigimos al index
+        '''
+        form.save()
+        usuario = form.cleaned_data.get('username')
+        password = form.cleaned_data.get('password1')
+        usuario = authenticate(username=usuario, password=password)
+        login(self.request, usuario)
+       # messages.success(request, "Registro completado correctamente")
+        return redirect('listadoPeliculas')
 
 
-
-"""def registro_usuario(request):
-    data = {
-        'form':UserCreationForm()
-    }
-
-
-    if request.method == 'POST':
-        formulario = UserCreationForm(request.POST)
-        if formulario.is_valid():
-            formulario.save()
-            #autenticar al usuario y redirigirlo al inicio
-            username = formulario.cleaned_data('username')
-            password = formulario.cleaned_data('password1')
-            user = authenticate(username=username, password=password)
-            login(request,user)
-            return redirect('listadoPeliculas')
-
-    return render(request, 'registration/registrar.html',data) """

@@ -35,6 +35,6 @@ urlpatterns = [
     path('actores/nuevo',views.ActorNuevo.as_view() , name='actor_nuevo'),                                    
     path('actores/<int:pk>/editar/', views.ActorEditar.as_view(), name='actor_editar'),                       
     path('actores/<int:pk>/eliminar/', views.ActorEliminar.as_view(), name='actor_eliminar'),        
-    #path('registro/',views.registro_usuario, name='registro_usuario'),
+    path('registro/',views.RegistroUsuario.as_view(), name='registro_usuario'),
     path('accounts/', include('django.contrib.auth.urls')),                                      #Add Django site authentication urls (for login, logout, password management)
 ]
