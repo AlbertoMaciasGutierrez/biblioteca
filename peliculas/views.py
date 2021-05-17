@@ -48,7 +48,7 @@ class ActorDetalles(LoginRequiredMixin, DetailView):
 class PeliculaNueva(LoginRequiredMixin, CreateView):
     model = Pelicula
     form_class = PeliculaForm
-    template_name = 'peliculas/peliculas_edit.html'
+    template_name = 'peliculas/peliculas_new.html'
     
 
     def get_success_url(self):
@@ -79,7 +79,7 @@ class PeliculaEliminar(LoginRequiredMixin, DeleteView):
 class DirectorNuevo(LoginRequiredMixin, CreateView):
     model = Director
     form_class = DirectorForm
-    template_name = 'directores/director_edit.html'
+    template_name = 'directores/director_new.html'
     
 
     def get_success_url(self):
@@ -109,7 +109,7 @@ class DirectorEliminar(LoginRequiredMixin,DeleteView):
 class ActorNuevo(LoginRequiredMixin,CreateView):
     model = Actor
     form_class = ActorForm
-    template_name = 'actores/actor_edit.html'
+    template_name = 'actores/actor_new.html'
     
 
     def get_success_url(self):
