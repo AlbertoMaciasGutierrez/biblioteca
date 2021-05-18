@@ -90,6 +90,7 @@ class Actor(models.Model):
 
 
 
+
 class Pelicula(models.Model):
     
     CATEGORIAS_CHOICES = [
@@ -137,18 +138,12 @@ class Pelicula(models.Model):
     valoracionMedia =models.DecimalField(default=0.0, decimal_places=1, max_digits=3)
     numVotos = models.IntegerField(default=0)
     valoracionTotal = models.DecimalField(default=0.0, decimal_places=1, max_digits=10)
-
-    def __repr__(self):
+                                                                                      
+    def __repr__(self): 
         return self.__str__()
 
     def __str__(self):
         return f"{self.titulo} - {self.fecha_publicacion.strftime('%Y')} - {self.director}"
-
-    
-
-
-
-
 
     class Meta:
         verbose_name = "pelicula"

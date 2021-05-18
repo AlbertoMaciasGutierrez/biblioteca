@@ -145,6 +145,7 @@ def valoracion(request,pk):
     if request.method =="POST":
         form = VotacionForm(request.POST,request.FILES, instance=peli)
         if form.is_valid():
+
             peli = form.save(commit=False)                     #Devuelve el objeto que todavia no está guardado en la base de datos
             peli.numVotos += 1
             numVotos = peli.numVotos
@@ -152,6 +153,8 @@ def valoracion(request,pk):
             total =  peli.valoracionTotal
             peli.valoracionMedia = total/numVotos
             peli.save()
+            
+            
 
             return redirect('detallesPelicula', pk=peli.pk)
 
