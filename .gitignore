@@ -1,3 +1,5 @@
 InformacionRelevante.txt
 db.sqlite3
-
+pelicula/static/media/actores/
+pelicula/static/media/directores/
+pelicula/static/media/peliculas/
