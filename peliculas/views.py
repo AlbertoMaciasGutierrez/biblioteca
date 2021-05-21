@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404, render,redirect
 from django.views.generic import DetailView, DeleteView, CreateView, ListView, UpdateView 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, update_session_auth_hash
 from django.urls import reverse_lazy, reverse
 from .models import Pelicula, Director, Actor
 from .forms import PeliculaForm, DirectorForm, ActorForm, VotacionForm, RegistroForm  
@@ -147,13 +147,42 @@ def valoracion(request,pk):
         if form.is_valid():
 
             peli = form.save(commit=False)                     #Devuelve el objeto que todavia no está guardado en la base de datos
-            peli.numVotos += 1
-            numVotos = peli.numVotos
-            peli.valoracionTotal += peli.valoracion
-            total =  peli.valoracionTotal
-            peli.valoracionMedia = total/numVotos
-            peli.save()
-            
+            if peli.numVotos == 0:
+                peli.voto_usuario = str(request.user)
+                print(peli.voto_usuario)
+                peli.numVotos += 1
+                numVotos = peli.numVotos
+                peli.valoracionTotal += peli.valoracion
+                total =  peli.valoracionTotal
+                peli.valoracionMedia = total/numVotos
+                peli.save()
+                
+            else:
+                usuariosVoto = peli.voto_usuario.split(sep='|')
+                haVotado = False
+                nombreUsuario= str(request.user)
+
+                for v in usuariosVoto:
+                    if nombreUsuario == v:
+                        haVotado = True
+
+                if haVotado:
+                    print("El usario ",v, " ya ha votado.")
+                    return render(request, os.path.join("peliculas", "usuario_ha_votado.html"),{'peli':peli})
+
+                else:
+
+                    nombre = "|"
+                    nombre += nombreUsuario
+                    peli.voto_usuario += nombre
+                    print(peli.voto_usuario)
+                    peli.numVotos += 1
+                    numVotos = peli.numVotos
+                    peli.valoracionTotal += peli.valoracion
+                    total =  peli.valoracionTotal
+                    peli.valoracionMedia = total/numVotos
+                    peli.save()
+    
             
 
             return redirect('detallesPelicula', pk=peli.pk)

@@ -91,6 +91,7 @@ class Actor(models.Model):
 
 
 
+
 class Pelicula(models.Model):
     
     CATEGORIAS_CHOICES = [
@@ -138,6 +139,7 @@ class Pelicula(models.Model):
     valoracionMedia =models.DecimalField(default=0.0, decimal_places=1, max_digits=3)
     numVotos = models.IntegerField(default=0)
     valoracionTotal = models.DecimalField(default=0.0, decimal_places=1, max_digits=10)
+    voto_usuario = models.TextField(null= True, default=0)
                                                                                       
     def __repr__(self): 
         return self.__str__()

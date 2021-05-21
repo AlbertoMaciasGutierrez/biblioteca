@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Ha votado{% endblock %}
+
+{% block content %}
+
+    <h2>El usuario "{{user.get_username}}" ya ha votado esta película<h2>
+
+    <a class="btn btn-secondary" href="{% url 'detallesPelicula' pk=peli.pk %}" >Volver</a>
+
+
+{% endblock %}

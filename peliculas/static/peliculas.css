@@ -1,5 +1,5 @@
 .page-header {
-    background-color: #31253dde;
+    background-color: #382c38ee;
     margin-top: 0;
     padding: 1px 1px 1px 40px;
     width: 100%;
@@ -29,7 +29,7 @@
 
 .page-header h2, .page-header h2 a, .page-header h2 a:visited, .page-header h2 a:active {
     color: #ffffff;
-    -webkit-text-stroke: 0.6px black;
+    
     text-decoration: none;
     
 }
@@ -89,11 +89,11 @@ h1, h2, h3, h4, h5 {
     margin-left: 20px;
 }
 
-.label-primary{
+.badge-primary{
     font-size: 13pt 
 }
 
-.label-info{
+.badge-info{
     font-size: 11pt
 }
 

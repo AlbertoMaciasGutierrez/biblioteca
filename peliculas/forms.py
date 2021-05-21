@@ -1,5 +1,6 @@
 
 from django import forms
+from django.forms.widgets import Select
 from .models import Pelicula, Director, Actor
 from cuentas.models import Usuario
 from django.contrib.auth.models import User
@@ -29,6 +30,7 @@ class VotacionForm(forms.ModelForm):
         model = Pelicula
         fields = ('valoracion',)
 
+   
 
 class DirectorForm(forms.ModelForm):
 
