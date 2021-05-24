@@ -3,10 +3,15 @@
 {% block title %}Ha votado{% endblock %}
 
 {% block content %}
+    <div class="caja-ya-voto pb-2 pt-2 mb-2">
+        <h3>El usuario "<b><i>{{user.get_username}}</i></b>" ya ha votado esta película<h3>
+        <br>
+        <a class="btn btn-info" href="{% url 'detallesPelicula' pk=peli.pk %}" >Volver</a>
+    </div>
 
-    <h2>El usuario "{{user.get_username}}" ya ha votado esta película<h2>
+    
 
-    <a class="btn btn-secondary" href="{% url 'detallesPelicula' pk=peli.pk %}" >Volver</a>
+    
 
 
 {% endblock %}

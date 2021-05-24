@@ -3,16 +3,22 @@
 {% block title %}{{object.titulo}}{% endblock %}
 
 {% block content %}
-    <h2>Nueva pelicula</h2>
-    <form method="POST" class="pelicula-form" enctype="multipart/form-data">{% csrf_token %}  {%comment%} "{% csrf_token %}": Genera un token único por cada petición, de tal manera que nadie pueda falsificar
-                                                                la solicitud para el sitio web ya que los falsificadores no poseerán este token, y la aplicación dará un error. 
-                                                                Bueno para cuenctype="multipart/form-data"alquier plantilla que use formularios POST{% endcomment %}
-        {{ form.as_p }}                                         {#} "{{form.as_p}}": renderizar formularios de Django como párrafo. Si quitamos esto no se representa el formulario{#} 
-        <br><br>       
-        <p>
-            <input class="btn btn-primary" type="submit" value="Confirmar">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <a class="btn btn-danger" href="{% url 'detallesPelicula' pk=object.pk %}" >Cancelar</a>
-        </p>
-    </form>
+    <div class="caja pb-2 pt-2 mb-2">
+        <h2><i><b>{{ object.titulo }}</b></i></h2>
+    </div>
+    <br>
+    <div class="jumbotron pt-4 pb-4">
+        <form method="POST" class="pelicula-form" enctype="multipart/form-data">{% csrf_token %}  {%comment%} "{% csrf_token %}": Genera un token único por cada petición, de tal manera que nadie pueda falsificar
+                                                                    la solicitud para el sitio web ya que los falsificadores no poseerán este token, y la aplicación dará un error. 
+                                                                    Bueno para cuenctype="multipart/form-data"alquier plantilla que use formularios POST{% endcomment %}
+            {{ form.as_p }}                                         {#} "{{form.as_p}}": renderizar formularios de Django como párrafo. Si quitamos esto no se representa el formulario{#} 
+            <br><br>       
+            <p>
+                <input class="btn btn-primary" type="submit" value="Confirmar">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="btn btn-danger" href="{% url 'detallesPelicula' pk=object.pk %}" >Cancelar</a>
+            </p>
+        </form>
+    </div>
+
 {% endblock %}

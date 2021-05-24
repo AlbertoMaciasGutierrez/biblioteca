@@ -9,18 +9,19 @@
     {% endif %}
 
 
+    <div class="caja-registrar pb-2 pt-2 mb-2">
+        <form method="POST" action="">
+            {% csrf_token %}    {%comment%} "{% csrf_token %}" Genera un token único por cada petición, de tal manera que nadie pueda falsificar
+                                la solicitud para el sitio web ya que los falsificadores no poseerán este token, y la aplicación dará un error. 
+                                Bueno para cualquier plantilla que use formularios POST{% endcomment %}
 
-    <form method="POST" action="">
-        {% csrf_token %}    {%comment%} "{% csrf_token %}" Genera un token único por cada petición, de tal manera que nadie pueda falsificar
-                            la solicitud para el sitio web ya que los falsificadores no poseerán este token, y la aplicación dará un error. 
-                            Bueno para cualquier plantilla que use formularios POST{% endcomment %}
+            <table>
+                {{ form.as_p}}      {#} "{{form.as_table}}": renderizar formularios de Django como tabla {#}
+            </table>
 
-        <table>
-            {{ form.as_p}}      {#} "{{form.as_table}}": renderizar formularios de Django como tabla {#}
-        </table>
+            <input class="btn btn-outline-danger" type = "reset" value = "Clear">
+            <input class="btn btn-outline-primary" type = "submit" value = "Save">
 
-        <input class="btn btn-outline-secondary" type = "reset" value = "Clear">
-        <input class="btn btn-outline-primary" type = "submit" value = "Save">
-
-    </form>
+        </form>
+    <div class="caja-login pb-2 pt-2 mb-2">
 {% endblock %}

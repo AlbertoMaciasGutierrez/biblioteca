@@ -17,30 +17,32 @@
       {% endif %}
   {% endif %}
 
-  <form method="post" action="{% url 'login' %}">
-    {% csrf_token %}  {%comment%} "{% csrf_token %}" Genera un token único por cada petición, de tal manera que nadie pueda falsificar
-                      la solicitud para el sitio web ya que los falsificadores no poseerán este token, y la aplicación dará un error. 
-                      Bueno para cualquier plantilla que use formularios POST{% endcomment %}
+  <div class="caja-login pb-2 pt-2 mb-2">
+    <form method="post" action="{% url 'login' %}">
+      {% csrf_token %}  {%comment%} "{% csrf_token %}" Genera un token único por cada petición, de tal manera que nadie pueda falsificar
+                        la solicitud para el sitio web ya que los falsificadores no poseerán este token, y la aplicación dará un error. 
+                        Bueno para cualquier plantilla que use formularios POST{% endcomment %}
 
-    <div>
-      <td>{{ form.username.label_tag }}</td>
-      <td>{{ form.username }}</td>
-    </div>
-    <div>
-      <td>{{ form.password.label_tag }}</td>
-      <td>{{ form.password }}</td>
-    </div>
-    
-    
-    
-    <div class="boton-login">
-      <input class="btn btn-outline-success" type="submit" value="Ingresar" />
-    </div>
-    <br>
-    <div>
-      <p>Todavía no tienes cuenta. <a href="{% url 'registro_usuario' %}">Registrar cuenta</a> </p>
-    </div>
-  </form>
+      <div>
+        <td>{{ form.username.label_tag }}</td>
+        <td>{{ form.username }}</td>
+      </div>
+      <div>
+        <td>{{ form.password.label_tag }}</td>
+        <td>{{ form.password }}</td>
+      </div>
+      
+      
+      
+      <div class="boton-login">
+        <input class="btn btn-outline-success" type="submit" value="Ingresar" />
+      </div>
+      <br>
+      <div>
+        <p>Todavía no tienes cuenta. <a href="{% url 'registro_usuario' %}">Registrar cuenta</a> </p>
+      </div>
+    </form>
+  </div>
 
   {# Assumes you setup the password_reset view in your URLconf #}
  {#<p><a href="{% url 'password_reset' %}">Lost password?</a></p> #} 

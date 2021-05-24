@@ -3,7 +3,7 @@
 {% block title %}Listado de peliculas{% endblock %}
 
 {% block content %}
-    <h5>AÑADIR PELÍCULA  &nbsp; <a href="{% url 'pelicula_nueva' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a></h5>
+    <h5>AÑADIR PELÍCULA  &nbsp; <a href="{% url 'pelicula_nueva' %}" class="top-menu"><span class="fa fa-plus-circle fa-1"></span></a></h5>
     <br>
     <ul>
         {% for pelicula in pelicula_list %}

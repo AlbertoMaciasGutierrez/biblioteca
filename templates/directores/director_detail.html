@@ -5,28 +5,31 @@
 
 {% block content %}
     <div class="post">
-        <div class="page-header">
-            <h2><i>{{ object.nombre}}</i></h2>
+        <div class="caja pb-2 pt-2 mb-2 ">
+            <h2><i><b>{{ object.nombre}}</b></i></h2>
         </div>
-        <div class ="content container">
-            <div class = "row">
-                <div class="col-md-8"> 
-                    <p>
-                        <a class="btn btn-warning" href="{% url 'director_editar' pk=object.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp; 
-                        <a class="btn btn-danger" href="{% url 'director_eliminar' pk=object.pk %}"><span class="glyphicon glyphicon-remove"></span></a> &nbsp;
-                    </p>
-                    <div class="media">
-                        <img class="media-object" src="{% static 'media/' %}{{object.imagen}} " width="115" height="115">
+
+        <div class="jumbotron pt-4 pb-4">
+            <div class ="container-b">
+                <div class = "row">
+                    <div class="col-md-11"> 
+                        <p>
+                            <a class="btn btn-warning" href="{% url 'director_editar' pk=object.pk %}"><span class="fa fa-pencil"></span></a>&nbsp; 
+                            <a class="btn btn-danger" href="{% url 'director_eliminar' pk=object.pk %}"><span class="fa fa-close"></span></a> &nbsp;
+                        </p>
+                        <div class="media">
+                            <img class="media-object" src="{% static 'media/' %}{{object.imagen}} " width="115" height="115">
+                        </div>
+                        <br>
+                        <p><b>Fecha de Nacimiento:    </b>{{ object.fecha_nacimiento|date:"j F, Y"}}</p>
+                        {% if object.pais %}
+                            <p><b>Pais:   &nbsp;&nbsp;</b>{{object.pais}}</p>
+                        {% else %}    
+                            <p><b>Pais:   &nbsp;&nbsp;</b>Desconocido</p>
+                        {% endif %}
+                        <p><b>Biografía:    &nbsp;&nbsp;</b>{{ object.biografia}}</p>
+                        <br><br>
                     </div>
-                    <br>
-                    <p><b>Fecha de Nacimiento:    </b>{{ object.fecha_nacimiento|date:"j F, Y"}}</p>
-                    {% if object.pais %}
-                        <p><b>Pais:   &nbsp;&nbsp;</b>{{object.pais}}</p>
-                    {% else %}    
-                        <p><b>Pais:   &nbsp;&nbsp;</b>Desconocido</p>
-                    {% endif %}
-                    <p><b>Biografía:    &nbsp;&nbsp;</b>{{ object.biografia}}</p>
-                    <br><br>
                 </div>
             </div>
         </div>

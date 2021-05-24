@@ -3,7 +3,7 @@
 {% block title %}Listado de directores{% endblock %}
 
 {% block content %}
-    <h5>AÑADIR DIRECTOR  &nbsp;<a href="{% url 'director_nuevo' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a></h5>
+    <h5>AÑADIR DIRECTOR  &nbsp;<a href="{% url 'director_nuevo' %}" class="top-menu"><span class="fa fa-plus-circle fa-1"></span></a></h5>
     <br>
     <ul>
         {% for director in director_list %}

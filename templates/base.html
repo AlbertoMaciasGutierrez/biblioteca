@@ -3,9 +3,11 @@
     <head>
         <title>Biblioteca - {% block title %}Home{% endblock %}</title>
         
-
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
         <link rel="stylesheet" href="{% static 'peliculas.css' %}"> 
         <meta http-equiv="Expires" content="0">
         <meta http-equiv="Last-Modified" content="0">
@@ -13,11 +15,11 @@
         <meta http-equiv="Pragma" content="no-cache">
       
     </head>
+    
 <body>
+    <nav class="navbar navbar-expand-lg navbar-dark pb-2 mb-4 border-bottom" style="background-color: #563d7c;">
     
-    
-    <nav class="navbar navbar-expand-lg navbar-dark " style="background-color: #563d7c;">
-    
+        
         {% if user.is_authenticated %}
             
                 <a class="navbar-brand" href="/peliculas">Biblioteca de Películas </a>
@@ -37,27 +39,38 @@
                     </ul>
 
                     <ul class="navbar-nav justify-content-end ml-auto">
-                        <span class="navbar-text ">Usuario: {{user.get_username }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> 
-                        <li class="nav-item "> 
-                            <a class ="nav-link" href="{% url 'logout'%}?next={{request.path}}"> Cerrar Sesión</a>
-                        </li>
+                        <div class="btn-group dropleft">
+                            <li class="nav-item dropdown"> 
+                                <span class ="btn btn-primary nav-link dropdown-toggle text-dark" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+                                    {{user.get_username }}
+                                </span>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <h6 class="dropdown-header">Mi Cuenta</h6>
+                                    <a class="dropdown-item" href="{% url 'logout'%}?next={{request.path}}"> Cerrar Sesión</a>
+                                </div>
+                            </li>
+                        </div>
                     </ul>
                 </div>
                
         
         {%else %}
             <a class="navbar-brand" href="/peliculas">Biblioteca de Películas </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+            </button>
 
-            <ul class="navbar-nav justify-content-end ml-auto">
-                <li class="nav-item "> 
-                    <a class ="nav-link" href="{% url 'login'%}?next={{request.path}}">Iniciar Sesión</a>
-                </li>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav justify-content-end ml-auto">
+                    <li class="nav-item "> 
+                        <a class ="nav-link" href="{% url 'login'%}?next={{request.path}}">Iniciar Sesión</a>
+                    </li>
 
-                <li class="nav-item "> 
-                    <a class ="nav-link" href="{% url 'registro_usuario'%}?next={{request.path}}">Registrar</a>
-                </li>
-            </ul>
-
+                    <li class="nav-item "> 
+                        <a class ="nav-link" href="{% url 'registro_usuario'%}?next={{request.path}}">Registrar</a>
+                    </li>
+                </ul>
+            </div>
             
         {%endif %}
     </nav>

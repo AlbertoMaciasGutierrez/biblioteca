@@ -7,65 +7,66 @@
 
     <div class="post">
         
-        <div class="page-header b">
-            <h2><i>{{ object.titulo }}</i></h2>
+        <div class="caja pb-2 pt-2 mb-2">
+            <h2><i><b>{{ object.titulo }}</b></i></h2>
         </div>
 
-        <div class ="container">
-         
-
-            <div class = "row">
-                <div class="col-md-8">
-                    
-                        <p>
-                            <a class="btn btn-warning" href="{% url 'pelicula_editar' pk=object.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;
-                            <a class="btn btn-danger" href="{% url 'pelicula_eliminar' pk=object.pk %}"><span class="glyphicon glyphicon-remove"></span></a>&nbsp;
-                            <a class="btn btn-success" href="{% url 'votacionPelicula' pk=object.pk %}"><span class="glyphicon glyphicon-heart-empty"></span></a>   
+        <div class="jumbotron pt-4 pb-4">
+            <div class ="container-b">
+            
+                <div class = "row">
+                    <div class="col-md-11">
+                        
+                            <p>
+                                <a class="btn btn-warning" href="{% url 'pelicula_editar' pk=object.pk %}"><span class="fa fa-pencil"></span></a>&nbsp;
+                                <a class="btn btn-danger" href="{% url 'pelicula_eliminar' pk=object.pk %}"><span class="fa fa-close"></span></a>&nbsp;
+                                <a class="btn btn-success" href="{% url 'votacionPelicula' pk=object.pk %}"><span class="fa fa-heart"></span></a>   
+                                
+                            </p>
+                            <p><b>Fecha:  &nbsp;&nbsp;</b>{{ object.fecha_publicacion|date:"j F, Y"}}</p>
+                            <p><b>Categoría:   &nbsp;&nbsp;</b>{{ object.categoria}}</p>
                             
-                        </p>
-                        <p><b>Fecha:  &nbsp;&nbsp;</b>{{ object.fecha_publicacion|date:"j F, Y"}}</p>
-                        <p><b>Categoría:   &nbsp;&nbsp;</b>{{ object.categoria}}</p>
-                        
-                        {% if object.pais %}
-                            <p><b>Pais:   &nbsp;&nbsp;</b>{{ object.pais}}</p>
-                        {% else %}    
-                            <p><b>Pais:   &nbsp;&nbsp;</b>Desconocido</p>
-                        {% endif %}
+                            {% if object.pais %}
+                                <p><b>Pais:   &nbsp;&nbsp;</b>{{ object.pais}}</p>
+                            {% else %}    
+                                <p><b>Pais:   &nbsp;&nbsp;</b>Desconocido</p>
+                            {% endif %}
+                                
+                            </p>
+                            <p><b>Duración:   &nbsp;&nbsp;</b>{{ object.duracion}} min.</p>
+                            <p><b>Director:   &nbsp;&nbsp;</b><a href="/director/{{object.director.pk}}">{{ object.director}}</a> </p>
+                            <p><b>Sinopsis:   &nbsp;&nbsp;</b>{{ object.sinopsis}}</p>
                             
-                        </p>
-                        <p><b>Duración:   &nbsp;&nbsp;</b>{{ object.duracion}} min.</p>
-                        <p><b>Director:   &nbsp;&nbsp;</b><a href="/director/{{object.director.pk}}">{{ object.director}}</a> </p>
-                        <p><b>Sinopsis:   &nbsp;&nbsp;</b>{{ object.sinopsis}}</p>
+                            <br>
+                            
+                            <p>
+                                <b>Reparto:  </b>
+                                {% for a in object.actores.all %}
+                                    &nbsp;&nbsp;<a href="/actores/{{a.pk}}">{{ a.nombre }}</a> 
+                                {% empty %}
+                                    &nbsp;&nbsp;
+                                    No hay actores guardados para esta película
+                                {% endfor %}
+                            </p>
+                            <br>
+                            <p><a href="{{object.trailer}}">Trailer</a></p> 
+                            
+                            <div class="media">
+                                <img class="media-object" src="{% static 'media/' %}{{object.imagen}} " width="300" height="300">
+                            </div>
+                            
+                            <br>
+                            <p>
+                                <b>Valoración:   &nbsp;&nbsp;</b><span class="badge badge-pill badge-primary">{{object.valoracionMedia}}</span> &nbsp;&nbsp;&nbsp;
+                                <span class="badge badge-pill badge-info">{{object.numVotos}} votos</span>    
+                            </p>
+                            
+                            <br><br>
+                            {% comment "" %} <div class="embed-responsive embed-responsive-16by9">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/Qd0_qYIhMZA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>  {% endcomment %} 
                         
-                        <br>
-                        
-                        <p>
-                            <b>Reparto:  </b>
-                            {% for a in object.actores.all %}
-                                &nbsp;&nbsp;<a href="/actores/{{a.pk}}">{{ a.nombre }}</a> 
-                            {% empty %}
-                                &nbsp;&nbsp;
-                                No hay actores guardados para esta película
-                            {% endfor %}
-                        </p>
-                        <br>
-                        <p><a href="{{object.trailer}}">Trailer</a></p> 
-                        
-                        <div class="media">
-                            <img class="media-object" src="{% static 'media/' %}{{object.imagen}} " width="300" height="300">
-                        </div>
-                        
-                        <br>
-                        <p>
-                            <b>Valoración:   &nbsp;&nbsp;</b><span class="badge badge-pill badge-primary">{{object.valoracionMedia}}</span> &nbsp;&nbsp;&nbsp;
-                            <span class="badge badge-pill badge-info">{{object.numVotos}} votos</span>    
-                        </p>
-                        
-                        <br><br>
-                        {% comment "" %} <div class="embed-responsive embed-responsive-16by9">
-                            <iframe width="560" height="315" src="https://www.youtube.com/embed/Qd0_qYIhMZA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>  {% endcomment %} 
-                    
+                    </div>
                 </div>
             </div>
         </div>
