@@ -24,9 +24,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'd#sp@myuby_n1f-l1qw5sb-e1haxou)ld6pryyuxy!v0hxrw9b'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = True
+#DEBUG = True
+#ALLOWED_HOSTS = []
 
-ALLOWED_HOSTS = []
+DEBUG = False           #Descomentar estas 2 líneas para no usar el depurador
+ALLOWED_HOSTS = ['*']    
+
 
 
 # Application definition

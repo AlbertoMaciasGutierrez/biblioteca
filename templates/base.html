@@ -16,79 +16,79 @@
       
     </head>
     
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark pb-2 mb-4 border-bottom" style="background-color: #563d7c;">
-    
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark pb-2 mb-4 border-bottom" style="background-color: #563d7c;">
         
-        {% if user.is_authenticated %}
             
+            {% if user.is_authenticated %}
+                
+                    <a class="navbar-brand" href="/peliculas">Biblioteca de Películas </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarText">
+                        <ul class="navbar-nav ">
+                            <li class="nav-item px-1"> 
+                                <a class ="nav-link" href="/director">Directores</a>
+                            </li>
+                            
+                            <li class="nav-item px-1"> 
+                                <a class ="nav-link" href="/actores">Actores</a>
+                            </li>
+                        </ul>
+
+                        <ul class="navbar-nav justify-content-end ml-auto">
+                            <div class="btn-group dropleft">
+                                <li class="nav-item dropdown"> 
+                                    <span class ="btn btn-primary nav-link dropdown-toggle text-dark" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+                                        {{user.get_username }}
+                                    </span>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        <h6 class="dropdown-header">Mi Cuenta</h6>
+                                        <a class="dropdown-item" href="{% url 'logout'%}?next={{request.path}}"> Cerrar Sesión</a>
+                                    </div>
+                                </li>
+                            </div>
+                        </ul>
+                    </div>
+                
+            
+            {%else %}
                 <a class="navbar-brand" href="/peliculas">Biblioteca de Películas </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarText">
-                    <ul class="navbar-nav ">
-                        <li class="nav-item px-1"> 
-                            <a class ="nav-link" href="/director">Directores</a>
-                        </li>
-                        
-                        <li class="nav-item px-1"> 
-                            <a class ="nav-link" href="/actores">Actores</a>
-                        </li>
-                    </ul>
-
                     <ul class="navbar-nav justify-content-end ml-auto">
-                        <div class="btn-group dropleft">
-                            <li class="nav-item dropdown"> 
-                                <span class ="btn btn-primary nav-link dropdown-toggle text-dark" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
-                                    {{user.get_username }}
-                                </span>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <h6 class="dropdown-header">Mi Cuenta</h6>
-                                    <a class="dropdown-item" href="{% url 'logout'%}?next={{request.path}}"> Cerrar Sesión</a>
-                                </div>
-                            </li>
-                        </div>
+                        <li class="nav-item "> 
+                            <a class ="nav-link" href="{% url 'login'%}?next={{request.path}}">Iniciar Sesión</a>
+                        </li>
+
+                        <li class="nav-item "> 
+                            <a class ="nav-link" href="{% url 'registro_usuario'%}?next={{request.path}}">Registrar</a>
+                        </li>
                     </ul>
                 </div>
-               
-        
-        {%else %}
-            <a class="navbar-brand" href="/peliculas">Biblioteca de Películas </a>
-            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-            </button>
+                
+            {%endif %}
+        </nav>
+    
 
-            <div class="collapse navbar-collapse" id="navbarText">
-                <ul class="navbar-nav justify-content-end ml-auto">
-                    <li class="nav-item "> 
-                        <a class ="nav-link" href="{% url 'login'%}?next={{request.path}}">Iniciar Sesión</a>
-                    </li>
-
-                    <li class="nav-item "> 
-                        <a class ="nav-link" href="{% url 'registro_usuario'%}?next={{request.path}}">Registrar</a>
-                    </li>
-                </ul>
-            </div>
-            
-        {%endif %}
-    </nav>
-   
-
-    <ul class="sidebar-nav">    
-        <div class ="container">
-            <div class = "row">
-                <div class="col-md-8"> 
-                    {% block menu %}
-                    {% endblock %}
-                    <div id="content">
-                        {% block content %}{% endblock %}
+        <ul class="sidebar-nav">    
+            <div class ="container">
+                <div class = "row">
+                    <div class="col-md-8"> 
+                        {% block menu %}
+                        {% endblock %}
+                        <div id="content">
+                            {% block content %}{% endblock %}
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>  
-    </ul>
-        
-</body>
+            </div>  
+        </ul>
+            
+    </body>
 </html>

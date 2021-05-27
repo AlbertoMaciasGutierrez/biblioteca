@@ -1,6 +1,7 @@
 import os
 from django.contrib import messages
 from django.http import request
+from django.http.response import HttpResponseNotFound
 from cuentas.models import Usuario
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render,redirect
@@ -10,7 +11,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import login, authenticate, update_session_auth_hash
 from django.urls import reverse_lazy, reverse
 from .models import Pelicula, Director, Actor
-from .forms import PeliculaForm, DirectorForm, ActorForm, VotacionForm, RegistroForm  
+from .forms import PeliculaForm, DirectorForm, ActorForm, VotacionForm, RegistroForm
+ 
 
 
 
@@ -211,3 +213,5 @@ class RegistroUsuario(CreateView):
         return redirect('listadoPeliculas')
 
 
+def error_404(request, exception=None):
+    return HttpResponseNotFound(render(request, os.path.join("errores", "404.html")))

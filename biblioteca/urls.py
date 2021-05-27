@@ -16,6 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from peliculas import views
+from django.conf.urls import handler404
+
+handler404 = 'peliculas.views.error_404'
+
 
 urlpatterns = [
     path('peliculas/<int:pk>/', views.PeliculaDetalles.as_view(), name="detallesPelicula"),
@@ -38,3 +42,4 @@ urlpatterns = [
     path('registro/',views.RegistroUsuario.as_view(), name='registro_usuario'),
     path('accounts/', include('django.contrib.auth.urls')),                                      #Add Django site authentication urls (for login, logout, password management)
 ]
+
