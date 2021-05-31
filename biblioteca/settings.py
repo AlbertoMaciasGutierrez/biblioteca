@@ -25,10 +25,11 @@ SECRET_KEY = 'd#sp@myuby_n1f-l1qw5sb-e1haxou)ld6pryyuxy!v0hxrw9b'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = True
-#DEBUG = True
 #ALLOWED_HOSTS = []
 
-DEBUG = False           #Descomentar estas 2 líneas para no usar el depurador
+
+#Descomentar estas 2 líneas para no usar el depurador (servidor en producción)
+DEBUG = False           
 ALLOWED_HOSTS = ['*']    
 
 
@@ -126,11 +127,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+
+
 STATIC_URL = '/static/'
+
+
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'/static/'),
 ]
+
+
+
 
 AUTH_USER_MODEL = 'cuentas.Usuario'                     #Para indicar que queremos usar un usuario Custom
 

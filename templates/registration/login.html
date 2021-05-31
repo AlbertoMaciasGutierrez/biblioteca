@@ -4,6 +4,13 @@
 
 {% block content %}
 
+  <div class="container mr-xl-5 " style="width: 55%;">
+      <h1 class="text-center "><i><b>Iniciar Sesión</b></i></h1>
+      <br>
+  </div>
+
+  <div class="container mr-xl-5 " style=" background-color: #E0E5E9; width: 55%;">
+    
   {% if form.errors %}
     <p>Tu usuario o contraseña son incorrectos. Por favor inténtalo de nuevo.</p>
   {% endif %}
@@ -17,7 +24,7 @@
       {% endif %}
   {% endif %}
 
-  <div class="caja-login pb-1 pt-4">
+  
     <form method="post" action="{% url 'login' %}">
       {% csrf_token %}  {%comment%} "{% csrf_token %}" Genera un token único por cada petición, de tal manera que nadie pueda falsificar
                         la solicitud para el sitio web ya que los falsificadores no poseerán este token, y la aplicación dará un error. 
@@ -34,17 +41,17 @@
       
       
       
-      <div class="boton-login">
+      <div class="boton-login text-center">
         <input class="btn btn-outline-success" type="submit" value="Ingresar" />
       </div>
       <br>
       
     </form>
-  </div>
-  <div>
-      <p>Todavía no tienes cuenta. <a href="{% url 'registro_usuario' %}">Registrar cuenta</a> </p>
-  </div>
   
+  
+    <p>Todavía no tienes cuenta. <a href="{% url 'registro_usuario' %}">Registrar cuenta</a> </p>
+  
+  </div>
 
   {# Assumes you setup the password_reset view in your URLconf #}
  {#<p><a href="{% url 'password_reset' %}">Lost password?</a></p> #} 

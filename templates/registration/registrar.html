@@ -8,8 +8,13 @@
         <p>Error al registrar</p>
     {% endif %}
 
+    <div class="container mr-xl-5 ">
+      <h1 class="text-center "><i><b>Registrarse</b></i></h1>
+      <br>
+    </div>
 
-    <div class="caja-registrar pb-2 pt-2 mb-2">
+    <div class="container mr-xl-5 " style=" background-color: #E0E5E9">
+        <br>
         <form method="POST" action="">
             {% csrf_token %}    {%comment%} "{% csrf_token %}" Genera un token único por cada petición, de tal manera que nadie pueda falsificar
                                 la solicitud para el sitio web ya que los falsificadores no poseerán este token, y la aplicación dará un error. 
@@ -19,9 +24,11 @@
                 {{ form.as_p}}      {#} "{{form.as_table}}": renderizar formularios de Django como tabla {#}
             </table>
 
-            <input class="btn btn-outline-danger" type = "reset" value = "Clear">
-            <input class="btn btn-outline-primary" type = "submit" value = "Save">
-
+            <div class="boton-login text-center">
+                <input class="btn btn-outline-danger text-center" type = "reset" value = "Clear">
+                <input class="btn btn-outline-primary text-center" type = "submit" value = "Save">
+            </div>
         </form>
-    <div class="caja-login pb-2 pt-2 mb-2">
+        <br>
+    </div>
 {% endblock %}
