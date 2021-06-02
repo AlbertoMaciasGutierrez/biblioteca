@@ -66,33 +66,7 @@ h1, h3, h4, h5 {
     border: 2px solid #5878ca;
 }
 
-.caja-login { 
-    color: #000000; 
-    font-weight: 400; 
-    text-align: left; 
-    width: 50%;
-    background: #e0e0e0b4; 
-    margin: 0 0px 25px 0px; 
-    overflow: hidden; 
-    padding: 20px; 
-    border-radius: 35px 35px 35px 35px; 
-    -moz-border-radius: 35px 35px 35px 35px; 
-    -webkit-border-radius: 35px 35px 35px 35px; 
-}
 
-.caja-registrar { 
-    color: #000000; 
-    font-weight: 400; 
-    width: 115%;
-    text-align: left; 
-    background: #e0e0e0b4;  
-    margin: 0 0px 25px 0px; 
-    overflow: hidden; 
-    padding: 20px; 
-    border-radius: 35px 35px 35px 35px; 
-    -moz-border-radius: 35px 35px 35px 35px; 
-    -webkit-border-radius: 35px 35px 35px 35px; 
-}
 
 .caja-voto { 
     color: #000000;  
@@ -116,4 +90,26 @@ h1, h3, h4, h5 {
 
 .fa-1 {
     font-size: 18pt;
+}
+
+.container-c {
+    background-color: #E0E5E9; 
+    width: 55% ;
+    text-align: center;
+    margin-left: 38%;
+    border-radius: 8px 8px 8px 8px;
+    -moz-border-radius: 8px 8px 8px 8px;
+    -webkit-border-radius: 8px 8px 8px 8px;
+    border: 1px solid #000000; 
+}
+
+.container-d {
+    background-color: #E0E5E9; 
+    text-align: left;
+    width: 110% ;
+    margin-left: 12%;
+    border-radius: 8px 8px 8px 8px;
+    -moz-border-radius: 8px 8px 8px 8px;
+    -webkit-border-radius: 8px 8px 8px 8px;
+    border: 1px solid #000000; 
 }

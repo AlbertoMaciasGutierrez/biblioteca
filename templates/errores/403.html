@@ -20,9 +20,9 @@
         <center class= "container">
             {% if user.is_authenticated %}
                 <br><br>
-                <h1><b>No encontramos lo que busca</b></h1>
+                <h1><b>No tienes permiso para realizar esta acción</b></h1>
                 <br>
-                <img class="media-object" src="{% static 'img/errores/error404.jpg' %}" width="304" height="236">
+                <img class="media-object" src="{% static 'img/errores/error403.jpg' %}" width="304" height="236">
                 <br><br>
                 <p>Puede acceder a:</p>
                 
@@ -31,21 +31,22 @@
                     <li class="list-inline-item "><a  href="/director">Directores</a></li>
                     <li class="list-inline-item "><a  href="actores">Actores</a></li>
                 </ul>
-            
 
-            {%else%}
+                
+            {%else %}
                 <br><br>
-                <h1><b>No encontramos lo que busca</b></h1>
+                <h1><b>No tienes permiso para realizar esta acción</b></h1>
                 <br>
-                <img class="media-object" src="{% static 'img/errores/error404.jpg' %}" width="304" height="236">
+                <img class="media-object" src="{% static 'img/errores/error403.jpg' %}" width="304" height="236">
                 <br><br>
-                <p>Puede acceder a:</p>
+                <p>Para realizar la acción necesita Iniciar Sesión o Registrarse:</p>
                 
                 <ul class = "list-inline">
                     <li class="list-inline-item "><a  href="/accounts/login">Inicio Sesión</a></li>
                     <li class="list-inline-item "><a  href="/registro">Registrarse</a></li>
                 </ul>
-            {%endif%}
+
+            {%endif %}            
         </center>
         
 

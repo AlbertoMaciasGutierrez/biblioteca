@@ -8,12 +8,12 @@
         <p>Error al registrar</p>
     {% endif %}
 
-    <div class="container mr-xl-5 ">
+    <div class="container mr-xl-5 " style="width: 55%;">
       <h1 class="text-center "><i><b>Registrarse</b></i></h1>
       <br>
     </div>
 
-    <div class="container mr-xl-5 " style=" background-color: #E0E5E9">
+    <div class="container-d mr-xl-5 ">
         <br>
         <form method="POST" action="">
             {% csrf_token %}    {%comment%} "{% csrf_token %}" Genera un token único por cada petición, de tal manera que nadie pueda falsificar
@@ -21,7 +21,7 @@
                                 Bueno para cualquier plantilla que use formularios POST{% endcomment %}
 
             <table>
-                {{ form.as_p}}      {#} "{{form.as_table}}": renderizar formularios de Django como tabla {#}
+                {{form.as_p}}      {#} "{{form.as_table}}": renderizar formularios de Django como tabla {#}
             </table>
 
             <div class="boton-login text-center">

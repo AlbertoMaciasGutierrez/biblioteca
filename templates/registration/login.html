@@ -9,8 +9,9 @@
       <br>
   </div>
 
-  <div class="container mr-xl-5 " style=" background-color: #E0E5E9; width: 55%;">
-    
+  <div class="container-c  ">
+    <br>  
+
   {% if form.errors %}
     <p>Tu usuario o contraseña son incorrectos. Por favor inténtalo de nuevo.</p>
   {% endif %}
@@ -50,7 +51,7 @@
   
   
     <p>Todavía no tienes cuenta. <a href="{% url 'registro_usuario' %}">Registrar cuenta</a> </p>
-  
+    <br>
   </div>
 
   {# Assumes you setup the password_reset view in your URLconf #}

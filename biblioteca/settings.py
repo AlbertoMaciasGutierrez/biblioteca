@@ -144,6 +144,7 @@ AUTH_USER_MODEL = 'cuentas.Usuario'                     #Para indicar que querem
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/peliculas/'
+LOGOUT_REDIRECT_URL = '/accounts/login/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
