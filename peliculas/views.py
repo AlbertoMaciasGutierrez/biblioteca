@@ -1,7 +1,8 @@
 import os
 from django.contrib import messages
-from django.http import request
-from django.http.response import HttpResponseNotFound, HttpResponseServerError, HttpResponseForbidden
+from django.db.models.query import QuerySet
+from django.http import request,HttpRequest, Http404
+from django.http.response import HttpResponse, HttpResponseBadRequest, HttpResponseNotFound, HttpResponseServerError, HttpResponseForbidden
 from cuentas.models import Usuario
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render,redirect
@@ -20,6 +21,50 @@ class PeliculaListado(LoginRequiredMixin, ListView):             #Para ListView 
     model = Pelicula                                             #Estos nombres se usan en los bucles for de los distintos templates de cada lista de objects
     template_name = 'peliculas/peliculas_list.html'              #En este caso se llama "pelicula_list"
     raise_exception = True
+
+    def get(self, request, *args, **kwargs):
+        self.object_list = self.get_queryset()
+        allow_empty = self.get_allow_empty()
+
+        # PARTE DEL CÓDIGO PARA QUE FUNCIONE EL BUSCADOR 
+        #----------------------------------------------#
+        queryset = request.GET.get("Buscar")
+        pelicula = str(queryset).strip()
+        
+        if queryset:
+            peliculaEncontrada = False
+            for obj in self.object_list:
+                cadena = str(obj)
+                elementos = cadena.split(sep='-')
+                tituloPeli = elementos[0].strip()
+                
+                if tituloPeli == pelicula:
+                    peliculaEncontrada = True
+                    break
+            
+            if not peliculaEncontrada:
+                self.object_list = QuerySet
+            else:
+                self.object_list = Pelicula.objects.filter(titulo = tituloPeli)
+        #----------------------------------------------#
+    
+
+        if not allow_empty:
+            # When pagination is enabled and object_list is a queryset,
+            # it's better to do a cheap query than to load the unpaginated
+            # queryset in memory.
+            if self.get_paginate_by(self.object_list) is not None and hasattr(self.object_list, 'exists'):
+                is_empty = not self.object_list.exists()
+            else:
+                is_empty = not self.object_list
+            if is_empty:
+                raise Http404(_('Empty list and “%(class_name)s.allow_empty” is False.') % {
+                    'class_name': self.__class__.__name__,
+                })
+        context = self.get_context_data()
+        return self.render_to_response(context)
+
+    
     
 
 class DirectorListado(LoginRequiredMixin, ListView):
@@ -27,11 +72,95 @@ class DirectorListado(LoginRequiredMixin, ListView):
     template_name = 'directores/director_list.html'
     raise_exception = True
 
+    def get(self, request, *args, **kwargs):
+        self.object_list = self.get_queryset()
+        allow_empty = self.get_allow_empty()
+
+        # PARTE DEL CÓDIGO PARA QUE FUNCIONE EL BUSCADOR 
+        #----------------------------------------------#
+        queryset = request.GET.get("Buscar")
+        director = str(queryset).strip()
+        
+        if queryset:
+            directorEncontrado = False
+            for obj in self.object_list:
+                cadena = str(obj)
+                elementos = cadena.split(sep='-')
+                nombreDirector = elementos[0].strip()
+                
+                if nombreDirector == director:
+                    directorEncontrado = True
+                    break
+            
+            if not directorEncontrado:
+                self.object_list = QuerySet
+            else:
+                self.object_list = Director.objects.filter(nombre = nombreDirector)
+        #----------------------------------------------#
+    
+
+        if not allow_empty:
+            # When pagination is enabled and object_list is a queryset,
+            # it's better to do a cheap query than to load the unpaginated
+            # queryset in memory.
+            if self.get_paginate_by(self.object_list) is not None and hasattr(self.object_list, 'exists'):
+                is_empty = not self.object_list.exists()
+            else:
+                is_empty = not self.object_list
+            if is_empty:
+                raise Http404(_('Empty list and “%(class_name)s.allow_empty” is False.') % {
+                    'class_name': self.__class__.__name__,
+                })
+        context = self.get_context_data()
+        return self.render_to_response(context)
+
 
 class ActorListado(LoginRequiredMixin, ListView):
     model = Actor
     template_name = 'actores/actor_list.html'
     raise_exception = True
+
+    def get(self, request, *args, **kwargs):
+        self.object_list = self.get_queryset()
+        allow_empty = self.get_allow_empty()
+
+        # PARTE DEL CÓDIGO PARA QUE FUNCIONE EL BUSCADOR 
+        #----------------------------------------------#
+        queryset = request.GET.get("Buscar")
+        actor = str(queryset).strip()
+        
+        if queryset:
+            actorEncontrado = False
+            for obj in self.object_list:
+                cadena = str(obj)
+                elementos = cadena.split(sep='-')
+                nombreActor = elementos[0].strip()
+                
+                if nombreActor == actor:
+                    actorEncontrado = True
+                    break
+            
+            if not actorEncontrado:
+                self.object_list = QuerySet
+            else:
+                self.object_list = Actor.objects.filter(nombre = nombreActor)
+        #----------------------------------------------#
+    
+
+        if not allow_empty:
+            # When pagination is enabled and object_list is a queryset,
+            # it's better to do a cheap query than to load the unpaginated
+            # queryset in memory.
+            if self.get_paginate_by(self.object_list) is not None and hasattr(self.object_list, 'exists'):
+                is_empty = not self.object_list.exists()
+            else:
+                is_empty = not self.object_list
+            if is_empty:
+                raise Http404(_('Empty list and “%(class_name)s.allow_empty” is False.') % {
+                    'class_name': self.__class__.__name__,
+                })
+        context = self.get_context_data()
+        return self.render_to_response(context)
 
 
 
@@ -148,6 +277,7 @@ def valoracion(request,pk):
     peli = get_object_or_404(Pelicula, pk=pk)
 
     if request.method =="POST":
+        
         form = VotacionForm(request.POST,request.FILES, instance=peli)
         if form.is_valid():
 
@@ -218,13 +348,17 @@ class RegistroUsuario(CreateView):
 
 
 
-def error_404(request, exception):
+def error_404(request, exception=None):
     return HttpResponseNotFound(render(request, os.path.join("errores", "404.html")))
     
 def error_500(request): 
     return HttpResponseServerError(render(request, os.path.join("errores", "500.html")))
 
-def error_403(request, exception):
+def error_403(request, exception=None):
     return HttpResponseForbidden(render(request, os.path.join("errores", "403.html")))
+
+def error_400(request, exception=None):
+    return HttpResponseBadRequest(render(request, os.path.join("errores", "400.html")))
+
 
 
