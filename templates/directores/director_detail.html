@@ -14,8 +14,8 @@
                 <div class = "row">
                     <div class="col-md-11"> 
                         <p>
-                            <a class="btn btn-warning" href="{% url 'director_editar' pk=object.pk %}"><span class="fa fa-pencil"></span></a>&nbsp; 
-                            <a class="btn btn-danger" href="{% url 'director_eliminar' pk=object.pk %}"><span class="fa fa-close"></span></a> &nbsp;
+                            <a class="btn btn-warning" href="{% url 'director_editar' pk=object.pk %}"><span class="fa fa-pencil"></span></a>&nbsp;
+                            <button class="btn btn-danger" onclick="abrir_modal_borrado('{% url 'director_eliminar' pk=object.pk %}')" ><span class="fa fa-close"></span></button>&nbsp; 
                         </p>
                         <div class="media">
                             <img class="media-object" src="{% static 'media/' %}{{object.imagen}} " width="115" height="115">
@@ -38,4 +38,20 @@
     </div>
 
    
+<div class = "modal fade" id="borrado" role="dialog"></div> 
+   
 {% endblock %}
+
+
+{% block JavaScript%}
+
+    <script type= "text/javascript">
+        var $ = jQuery.noConflict()
+        function abrir_modal_borrado(url){
+            $('#borrado').load(url, function(){
+                $(this).modal('show');
+            });
+        }
+    </script>
+
+{% endblock%}

@@ -1,17 +1,20 @@
-{% extends "base.html" %}
 
-{% block title %}{{ object.titulo}}{% endblock %}
 
-{% block content %}
-    <h2>¿Desea eliminar la Película "<b>{{ object.titulo}}</b>"?</h2>
-    <br>
-    <form method="POST" class="wish-delete">{% csrf_token %}
-        <p>
-            <input class="btn btn-primary" type="submit" value="Confirmar">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <a class="btn btn-danger" href="{% url 'detallesPelicula' pk=object.pk %}" >Cancelar</a>
-        </p>
-    </form>
+<div class = "modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">¿Desea eliminar la Película "<b>{{ object.titulo}}</b>"?</h2>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
 
-{% endblock %}
+        <form action="{% url 'pelicula_eliminar' object.id %}" method="POST">{% csrf_token %}
+            <div class="modal-footer">
+                <input class="btn btn-primary" type="submit" value="Confirmar">
+                <button class="btn btn-danger" type="button" data-dismiss="modal">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
 

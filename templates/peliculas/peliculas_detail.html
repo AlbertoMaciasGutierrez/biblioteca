@@ -19,8 +19,8 @@
                         
                             <p>
                                 <a class="btn btn-warning" href="{% url 'pelicula_editar' pk=object.pk %}"><span class="fa fa-pencil"></span></a>&nbsp;
-                                <a class="btn btn-danger" href="{% url 'pelicula_eliminar' pk=object.pk %}"><span class="fa fa-close"></span></a>&nbsp;
-                                <a class="btn btn-success" href="{% url 'votacionPelicula' pk=object.pk %}"><span class="fa fa-heart"></span></a>   
+                                <button class="btn btn-danger" onclick="abrir_modal_borrado('{% url 'pelicula_eliminar' pk=object.pk %}')" ><span class="fa fa-close"></span></button>&nbsp;
+                                <a class="btn btn-success"  href="{% url 'votacionPelicula' pk=object.pk %}"  ><span class="fa fa-heart"></span></a>   
                                 
                             </p>
                             <p><b>Fecha:  &nbsp;&nbsp;</b>{{ object.fecha_publicacion|date:"j F, Y"}}</p>
@@ -74,5 +74,20 @@
 
     </div>
 
+    <div class = "modal fade" id="borrado" role="dialog"></div> 
    
 {% endblock %}
+
+
+{% block JavaScript%}
+
+    <script type= "text/javascript">
+        var $ = jQuery.noConflict()
+        function abrir_modal_borrado(url){
+            $('#borrado').load(url, function(){
+                $(this).modal('show');
+            });
+        }
+    </script>
+
+{% endblock%}

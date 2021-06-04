@@ -64,6 +64,13 @@ class PeliculaListado(LoginRequiredMixin, ListView):             #Para ListView 
         context = self.get_context_data()
         return self.render_to_response(context)
 
+
+    #Pasamos una nueva variable al Template base.html
+    def get_context_data(self, **kwargs):
+        context = super(PeliculaListado, self).get_context_data(**kwargs)
+        context['boton_activado'] = True                                      #Si boton_activado es verdadero el botón del buscador funciona, si es falso no
+        return context
+
     
     
 
@@ -115,6 +122,14 @@ class DirectorListado(LoginRequiredMixin, ListView):
         return self.render_to_response(context)
 
 
+    #Pasamos una nueva variable al Template base.html
+    def get_context_data(self, **kwargs):
+        context = super(DirectorListado, self).get_context_data(**kwargs)
+        context['boton_activado'] = True                                      #Si boton_activado es verdadero el botón del buscador funciona, si es falso no
+        return context
+
+
+
 class ActorListado(LoginRequiredMixin, ListView):
     model = Actor
     template_name = 'actores/actor_list.html'
@@ -162,6 +177,12 @@ class ActorListado(LoginRequiredMixin, ListView):
         context = self.get_context_data()
         return self.render_to_response(context)
 
+    #Pasamos una nueva variable al Template base.html
+    def get_context_data(self, **kwargs):
+        context = super(ActorListado, self).get_context_data(**kwargs)
+        context['boton_activado'] = True                                      #Si boton_activado es verdadero el botón del buscador funciona, si es falso no
+        return context
+
 
 
 class PeliculaDetalles(LoginRequiredMixin, DetailView):
@@ -169,16 +190,35 @@ class PeliculaDetalles(LoginRequiredMixin, DetailView):
     template_name = 'peliculas/peliculas_detail.html'
     raise_exception = True
 
+    #Pasamos una nueva variable al Template base.html
+    def get_context_data(self, **kwargs):
+        context = super(PeliculaDetalles, self).get_context_data(**kwargs)
+        context['boton_activado'] = False                                      #Si boton_activado es verdadero el botón del buscador funciona, si es falso no
+        return context
+
+
    
 class DirectorDetalles(LoginRequiredMixin, DetailView):
     model = Director
     template_name = 'directores/director_detail.html'   
     raise_exception = True
 
+    #Pasamos una nueva variable al Template base.html
+    def get_context_data(self, **kwargs):
+        context = super(DirectorDetalles, self).get_context_data(**kwargs)
+        context['boton_activado'] = False                                      #Si boton_activado es verdadero el botón del buscador funciona, si es falso no
+        return context
+
 class ActorDetalles(LoginRequiredMixin, DetailView):
     model = Actor
     template_name = 'actores/actor_detail.html' 
     raise_exception = True
+
+    #Pasamos una nueva variable al Template base.html
+    def get_context_data(self, **kwargs):
+        context = super(ActorDetalles, self).get_context_data(**kwargs)
+        context['boton_activado'] = False                                      #Si boton_activado es verdadero el botón del buscador funciona, si es falso no
+        return context
 
 
 
@@ -191,6 +231,13 @@ class PeliculaNueva(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse('detallesPelicula',args=(self.object.id,))
 
+    #Pasamos una nueva variable al Template base.html
+    def get_context_data(self, **kwargs):
+        context = super(PeliculaNueva, self).get_context_data(**kwargs)
+        context['boton_activado'] = False                                      #Si boton_activado es verdadero el botón del buscador funciona, si es falso no
+        return context
+
+
 
 class PeliculaEditar(LoginRequiredMixin, UpdateView):
     model = Pelicula
@@ -201,6 +248,13 @@ class PeliculaEditar(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse('detallesPelicula',args=(self.object.id,))
 
+    #Pasamos una nueva variable al Template base.html
+    def get_context_data(self, **kwargs):
+        context = super(PeliculaEditar, self).get_context_data(**kwargs)
+        context['boton_activado'] = False                                      #Si boton_activado es verdadero el botón del buscador funciona, si es falso no
+        return context
+
+
 
 
 
@@ -208,7 +262,16 @@ class PeliculaEliminar(LoginRequiredMixin, DeleteView):
     model = Pelicula
     template_name = 'peliculas/pelicula_confirm_delete.html'
     success_url = reverse_lazy('listadoPeliculas')         #Cuando elimina redirige a la lista de películas
-    raise_exception = True   
+    raise_exception = True  
+
+    #Pasamos una nueva variable al Template base.html
+    def get_context_data(self, **kwargs):
+        context = super(PeliculaEliminar, self).get_context_data(**kwargs)
+        context['boton_activado'] = False                                      #Si boton_activado es verdadero el botón del buscador funciona, si es falso no
+        return context
+    
+
+ 
 
 
 
@@ -222,6 +285,12 @@ class DirectorNuevo(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse('detallesDirector',args=(self.object.id,))
 
+    #Pasamos una nueva variable al Template base.html
+    def get_context_data(self, **kwargs):
+        context = super(DirectorNuevo, self).get_context_data(**kwargs)
+        context['boton_activado'] = False                                      #Si boton_activado es verdadero el botón del buscador funciona, si es falso no
+        return context
+
 
 class DirectorEditar(LoginRequiredMixin, UpdateView):
     model = Director
@@ -232,6 +301,12 @@ class DirectorEditar(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse('detallesDirector',args=(self.object.id,))
 
+    #Pasamos una nueva variable al Template base.html
+    def get_context_data(self, **kwargs):
+        context = super(DirectorEditar, self).get_context_data(**kwargs)
+        context['boton_activado'] = False                                      #Si boton_activado es verdadero el botón del buscador funciona, si es falso no
+        return context
+
 
 
 
@@ -241,6 +316,11 @@ class DirectorEliminar(LoginRequiredMixin,DeleteView):
     success_url = reverse_lazy('listadoDirectores')           #Cuando elimina redirige a la lista de directores
     raise_exception = True
 
+    #Pasamos una nueva variable al Template base.html
+    def get_context_data(self, **kwargs):
+        context = super(DirectorEliminar, self).get_context_data(**kwargs)
+        context['boton_activado'] = False                                      #Si boton_activado es verdadero el botón del buscador funciona, si es falso no
+        return context
 
 
 class ActorNuevo(LoginRequiredMixin,CreateView):
@@ -252,6 +332,11 @@ class ActorNuevo(LoginRequiredMixin,CreateView):
     def get_success_url(self):
         return reverse('detallesActor',args=(self.object.id,))
 
+    #Pasamos una nueva variable al Template base.html
+    def get_context_data(self, **kwargs):
+        context = super(ActorNuevo, self).get_context_data(**kwargs)
+        context['boton_activado'] = False                                      #Si boton_activado es verdadero el botón del buscador funciona, si es falso no
+        return context
 
 
 class ActorEditar(LoginRequiredMixin,UpdateView):
@@ -263,6 +348,12 @@ class ActorEditar(LoginRequiredMixin,UpdateView):
     def get_success_url(self):
         return reverse('detallesActor',args=(self.object.id,))
     
+   #Pasamos una nueva variable al Template base.html
+    def get_context_data(self, **kwargs):
+        context = super(ActorEditar, self).get_context_data(**kwargs)
+        context['boton_activado'] = False                                      #Si boton_activado es verdadero el botón del buscador funciona, si es falso no
+        return context
+    
 
 
 
@@ -272,9 +363,17 @@ class ActorEliminar(LoginRequiredMixin,DeleteView):
     success_url = reverse_lazy('listadoActores')         #Cuando elimina redirige a la lista de películas
     raise_exception = True
 
+   #Pasamos una nueva variable al Template base.html
+    def get_context_data(self, **kwargs):
+        context = super(ActorEliminar, self).get_context_data(**kwargs)
+        context['boton_activado'] = False                                      #Si boton_activado es verdadero el botón del buscador funciona, si es falso no
+        return context
+
+
 @login_required
 def valoracion(request,pk):
     peli = get_object_or_404(Pelicula, pk=pk)
+    boton_activado = False
 
     if request.method =="POST":
         
@@ -303,7 +402,7 @@ def valoracion(request,pk):
 
                 if haVotado:
                     print("El usario ",v, " ya ha votado.")
-                    return render(request, os.path.join("peliculas", "usuario_ha_votado.html"),{'peli':peli})
+                    return render(request, os.path.join("peliculas", "usuario_ha_votado.html"),{'peli':peli, 'boton_activado':boton_activado})
 
                 else:
 
@@ -324,7 +423,7 @@ def valoracion(request,pk):
 
     else:
         form = VotacionForm(instance = peli)
-        return render(request, os.path.join("peliculas", "pelicula_vote.html"),{'form':form, 'peli':peli})
+        return render(request, os.path.join("peliculas", "pelicula_vote.html"),{'form':form, 'peli':peli, 'boton_activado':boton_activado})
 
 
 
@@ -345,6 +444,12 @@ class RegistroUsuario(CreateView):
         login(self.request, usuario)
        # messages.success(request, "Registro completado correctamente")
         return redirect('listadoPeliculas')
+
+    #Pasamos una nueva variable al Template base.html
+    def get_context_data(self, **kwargs):
+        context = super(RegistroUsuario, self).get_context_data(**kwargs)
+        context['boton_activado'] = False                                      #Si boton_activado es verdadero el botón del buscador funciona, si es falso no
+        return context    
 
 
 

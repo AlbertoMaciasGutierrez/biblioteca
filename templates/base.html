@@ -41,13 +41,18 @@
                         <ul class="navbar-nav justify-content-end ml-auto">
                             <form class="form-inline px-4" method ="get">
                                 <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Buscar" name="Buscar">
-                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                                {%if boton_activado%}
+                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                                {%else%}
+                                    <button type="submit" class="btn btn-outline-success my-2 my-sm-0" disabled>Buscar</button>   
+                                {%endif %}
+
                             </form>
 
                             <div class="btn-group dropleft">
                                 <li class="nav-item dropdown"> 
                                     <span class ="nav-link dropdown-toggle text-light " id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
-                                        <img src="{% static 'img/avatar_usuario/avatar.png' %}" class="rounded-circle" width="25" height="25">
+                                        <img src="{% static 'img/avatar_usuario/avatar.png' %}" class="rounded-circle" width="30" height="30">
                                     </span>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                         <h6 class="dropdown-header">Logueado como <br><b class= "text-dark" >{{user.get_username}}</b></h6>
@@ -94,6 +99,8 @@
                 </div>
             </div>  
         </ul>
-            
+    
+        {%block JavaScript%}{% endblock %}
+
     </body>
 </html>
