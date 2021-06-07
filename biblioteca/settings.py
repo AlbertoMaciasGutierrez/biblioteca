@@ -45,8 +45,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cuentas',
     'peliculas',
-    
+    'rest_framework',
 ]
+
+#Configuración de la api REST
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

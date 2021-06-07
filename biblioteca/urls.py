@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from peliculas import views
+from peliculas.api import ActoresView, ActorView, DirectorView, DirectoresView, PeliculaView, PeliculasView
 from django.conf.urls import handler404, handler500, handler403, handler400
 
 handler404 = 'peliculas.views.error_404'
@@ -44,5 +45,15 @@ urlpatterns = [
     path('actores/<int:pk>/eliminar/', views.ActorEliminar.as_view(), name='actor_eliminar'),        
     path('registro/',views.RegistroUsuario.as_view(), name='registro_usuario'),
     path('accounts/', include('django.contrib.auth.urls')),                                      #Add Django site authentication urls (for login, logout, password management)
+    #Api Django Rest Framework
+    path('api/', include("rest_framework.urls", namespace="rest_framework")),                    
+    path('api/actores', ActoresView.as_view(), name="apiView_listadoActores"),
+    path('api/actores/<int:pk>/', ActorView.as_view(), name="apiView_detallesActor"),
+    path('api/directores', DirectoresView.as_view(), name ="apiView_listadoDirectores"),
+    path('api/directores/<int:pk>/', DirectorView.as_view(), name="apiView_detallesDirector"),
+    path('api/peliculas', PeliculasView.as_view(), name="apiView_listadoPeliculas"),
+    path('api/peliculas/<int:pk>/', PeliculaView.as_view(), name="apiView_detallesPelicula"),
+    
+    
 ]
 

@@ -7,7 +7,7 @@ from cuentas.models import Usuario
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render,redirect
 from django.views.generic import DetailView, DeleteView, CreateView, ListView, UpdateView, View 
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import login, authenticate
 from django.urls import reverse_lazy, reverse
