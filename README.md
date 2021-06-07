@@ -27,18 +27,20 @@ python manage.py migrate
 ```    
 Una vez realizado esto ya podemos lanzar el servidor Django:
 ```  
-python manage.py runserver  
+python manage.py runserver --insecure  
 ```  
-Si accedemos a http://127.0.0.1:8000/peliculas, debe salir algo como esto:  
+Lanzamos en este modo el proyecto porque tenemos el depurador desactivado pero seguimos usando archivos estáticos 
+
+Para poder disponer de la funcionalidad de la biblioteca debemos de acceder a la dirección http://127.0.0.1:8000/pelicula. Si accedemos a una página que no existe el proyecto nos redirige a una página de error personalizada.  
   
 ![ScreemShot](https://raw.githubusercontent.com/AlbertoMaciasGutierrez/biblioteca/main/img/Inicio.png)  
   
-  ---  
+  ---
   
   
   
 ## Ejemplo de uso ## 
-Para poder usar esta biblioteca debemos de tener una cuenta. Para registrar una cuenta clicamos arriba en la barra de navegación en ***"Registrar"*** o debajo del botón ingresar en ***"Registrar cuenta"***.  
+Para poder usar esta biblioteca debemos de tener una cuenta. Para registrar una cuenta clicamos arriba a la derecha en la barra de navegación en ***"Registrar"*** o debajo del botón ingresar en ***"Registrar cuenta"***.  
 
 Rellenamos el formulario con el nombre de usario (con el que se accederá posteriormente a la cuenta), email, nombre, apellido, y contraseña. Cuando tengamos esto clicamos en el botón ***"Save"***. Cuando nos registremos nos llevará a la página donde se encuentra la biblioteca de películas. Clicando en la barra de arriba en ***"Biblioteca de Películas"***, ***"Directores"*** o ***"Actores"***, podremos acceder al listado de cada uno de estos elementos que hay guardados en la biblioteca (en este paso si accedes a estos listados no habrá ningún actor, película o director).   
   
@@ -52,7 +54,10 @@ A medida que introduzcamos películas, actores y directores el listado de estos 
   
 ![ScreemShot](https://raw.githubusercontent.com/AlbertoMaciasGutierrez/biblioteca/main/img/Peliculas.png)
 
-Por último clicando en la barra de navegación en la parte ***"Logout"***, cerraremos la sesión de nuestra cuenta.  
+  
+Colocandose en el listado de película podemos buscar cualquier película mediante el buscador de la barra de navegación, lo mismo ocurre para los actores y directores si nos situamos en los respectivos listados. 
+
+Por último clicando en el icono de navegación situado arriba a la derecha en la barra de navegación, se abre un desplegable y si pulsamos en la parte de ***"Cerrar Sesión"***, cerraremos la sesión de nuestra cuenta.  
   
   ---
 
