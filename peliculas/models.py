@@ -1,8 +1,9 @@
-import datetime
+import os
 
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.core.validators import MaxValueValidator, MinValueValidator
+from uuid import uuid4
 
 
 PAIS_CHOICES =[
@@ -94,6 +95,24 @@ class Actor(models.Model):
 
 class Pelicula(models.Model):
     
+    def generarRutaImagen(instance, filename):
+        # Extraemos la extensión de la imagen original
+        # archivo original
+        extension = os.path.splitext(filename)[1][1:]
+
+        # Generamos la ruta relativa a MEDIA_ROOT donde almacenar
+        # el archivo, usando la fecha actual (año/mes)
+        ruta = os.path.join('Peliculas')
+
+        # Generamos el nombre del archivo con un identificador
+        # aleatorio, y la extension del archivo original.
+        nombre_archivo = '{}.{}'.format(uuid4().hex, extension)
+
+        # Devolvermos la ruta completa
+        return os.path.join(ruta, nombre_archivo)
+
+
+
     CATEGORIAS_CHOICES = [
         ('Acción','Acción'),
         ('Aventura','Aventura'),
@@ -133,7 +152,7 @@ class Pelicula(models.Model):
     categoria = models.CharField(max_length=30,choices=CATEGORIAS_CHOICES,default='Acción')
     titulo = models.CharField(max_length=50)
     sinopsis = models.TextField()
-    imagen = models.ImageField( upload_to = 'peliculas' ,verbose_name='Imagen', blank=True)
+    imagen = models.ImageField( upload_to = generarRutaImagen ,verbose_name='Imagen', blank=True)
     actores = models.ManyToManyField(Actor, related_name='actores', blank=True)                          #"reloated_name =" : Parámetro para renombrar la relación
     valoracion = models.DecimalField(choices=VALORACION_CHOICES, default=0.0, decimal_places=1, max_digits=3)
     valoracionMedia =models.DecimalField(default=0.0, decimal_places=1, max_digits=3)
@@ -152,6 +171,11 @@ class Pelicula(models.Model):
         verbose_name_plural = "peliculas"
         ordering = ['-fecha_publicacion']
 
+#Borramos la imagen antes de borrar la película si tiene
+#@receiver(pre_delete, sender=Pelicula)
+#def pelicula_pre_delete_handler(sender,instance, **kwargs):
+  #  instance.imagen.delete(False)
+    
 
 
 

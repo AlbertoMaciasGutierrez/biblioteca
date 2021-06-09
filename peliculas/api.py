@@ -24,7 +24,7 @@ class DirectorSerializer(serializers.HyperlinkedModelSerializer):
 class PeliculaSerializer(serializers.HyperlinkedModelSerializer):
     director = serializers.SlugRelatedField(queryset=Director.objects.all(), slug_field='nombre')
     actores = serializers.SlugRelatedField(queryset=Actor.objects.all(), slug_field='nombre', many=True )
-    imagen = serializers.ImageField(max_length=None, allow_empty_file=False, use_url=True)
+    imagen = serializers.ImageField(max_length=None, allow_empty_file=False, use_url=False)
     valoracionMedia = serializers.CharField(read_only=True)
     numVotos = serializers.CharField(read_only=True)
     duracion = serializers.CharField()
@@ -36,11 +36,14 @@ class PeliculaSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ValoracionSerializer(serializers.HyperlinkedModelSerializer):
-    valoracion= serializers.ChoiceField(choices= Pelicula.VALORACION_CHOICES)
+    valoracion= serializers.ChoiceField(choices= Pelicula.VALORACION_CHOICES, write_only=True)
+    valoracionMedia = serializers.CharField(read_only=True)
+    numVotos = serializers.CharField(read_only=True)
+    titulo = serializers.CharField(read_only=True)
 
 
     class Meta:
-        fields = ("id", "valoracion")
+        fields = ("id", "titulo", "valoracionMedia", "numVotos", "valoracion")
         model = Pelicula
 
 
@@ -91,7 +94,8 @@ class PeliculaView(generics.RetrieveUpdateDestroyAPIView):
 
 
 
-@api_view(['PUT'])
+
+@api_view(['GET','PUT'])
 @permission_classes([IsAuthenticated])
 def valoracion(request,pk):
     try:
@@ -99,6 +103,11 @@ def valoracion(request,pk):
     except Pelicula.DoesNotExist:
         return Response({"detail": "Not Found"}, status=status.HTTP_404_NOT_FOUND)
     
+
+    if request.method =="GET":
+        serializer = ValoracionSerializer(peli)
+        return Response(serializer.data)
+
 
     if request.method =="PUT":
         
@@ -110,7 +119,7 @@ def valoracion(request,pk):
                 print(peli.voto_usuario)
                 peli.numVotos += 1
                 numVotos = peli.numVotos
-                peli.valoracionTotal += peli.valoracion
+                peli.valoracionTotal = float(peli.valoracionTotal) + float(peli.valoracion)
                 total =  peli.valoracionTotal
                 peli.valoracionMedia = total/numVotos
                 peli.save()
@@ -129,7 +138,7 @@ def valoracion(request,pk):
 
                 if haVotado:
                     print("El usario ",v, " ya ha votado.")
-                    return Response({"detail": "El usuario ya ha votado"}, status=status.HTTP_304_NOT_MODIFIED)
+                    return Response({"detail": "El usuario " + v + " ya ha votado" }, status=status.HTTP_400_BAD_REQUEST)
 
                 else:
 
@@ -139,7 +148,7 @@ def valoracion(request,pk):
                     print(peli.voto_usuario)
                     peli.numVotos += 1
                     numVotos = peli.numVotos
-                    peli.valoracionTotal += peli.valoracion
+                    peli.valoracionTotal = float(peli.valoracionTotal) + float(peli.valoracion)
                     total =  peli.valoracionTotal
                     peli.valoracionMedia = total/numVotos
                     peli.save()
