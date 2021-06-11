@@ -51,13 +51,28 @@ PAIS_CHOICES =[
 
 class Director(models.Model):
     
+    def generarRutaImagen(instance, filename):
+        # Extraemos la extensión de la imagen original
+        # archivo original
+        extension = os.path.splitext(filename)[1][1:]
+
+        # Generamos la ruta relativa a MEDIA_ROOT donde almacenar
+        # el archivo, usando la fecha actual (año/mes)
+        ruta = os.path.join('directores')
+
+        # Generamos el nombre del archivo con un identificador
+        # aleatorio, y la extension del archivo original.
+        nombre_archivo = '{}.{}'.format(uuid4().hex, extension)
+
+        # Devolvermos la ruta completa
+        return os.path.join(ruta, nombre_archivo)
 
 
     pais = models.CharField(choices=PAIS_CHOICES, null=True,max_length=70, blank=True)
     biografia = models.TextField()
     fecha_nacimiento = models.DateField()
     nombre = models.CharField(max_length=50)
-    imagen = models.ImageField( upload_to = 'directores' ,verbose_name='Imagen', blank=True)             
+    imagen = models.ImageField( upload_to = generarRutaImagen ,verbose_name='Imagen', blank=True)             
                                                                                       
     def __str__(self):
         return self.nombre
@@ -70,11 +85,27 @@ class Director(models.Model):
 
 class Actor(models.Model):
     
+    def generarRutaImagen(instance, filename):
+        # Extraemos la extensión de la imagen original
+        # archivo original
+        extension = os.path.splitext(filename)[1][1:]
+
+        # Generamos la ruta relativa a MEDIA_ROOT donde almacenar
+        # el archivo, usando la fecha actual (año/mes)
+        ruta = os.path.join('actores')
+
+        # Generamos el nombre del archivo con un identificador
+        # aleatorio, y la extension del archivo original.
+        nombre_archivo = '{}.{}'.format(uuid4().hex, extension)
+
+        # Devolvermos la ruta completa
+        return os.path.join(ruta, nombre_archivo)
+
     pais = models.CharField(choices=PAIS_CHOICES, null=True,max_length=70,blank=True)
     biografia = models.TextField()
     fecha_nacimiento = models.DateField()
     nombre = models.CharField(max_length=50)
-    imagen = models.ImageField( upload_to = 'actores' ,verbose_name='Imagen', blank=True)   
+    imagen = models.ImageField( upload_to = generarRutaImagen ,verbose_name='Imagen', blank=True)   
 
 
 
@@ -102,7 +133,7 @@ class Pelicula(models.Model):
 
         # Generamos la ruta relativa a MEDIA_ROOT donde almacenar
         # el archivo, usando la fecha actual (año/mes)
-        ruta = os.path.join('Peliculas')
+        ruta = os.path.join('peliculas')
 
         # Generamos el nombre del archivo con un identificador
         # aleatorio, y la extension del archivo original.

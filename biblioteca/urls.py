@@ -54,6 +54,7 @@ urlpatterns = [
     path('api/peliculas/', PeliculasView.as_view(), name="apiView_listadoPeliculas"),
     path('api/peliculas/<int:pk>/', PeliculaView.as_view(), name="apiView_detallesPelicula"),
     path('api/peliculas/<int:pk>/valorar/', valoracion , name='apiView_votacionPelicula'),
+
     
     
 ]

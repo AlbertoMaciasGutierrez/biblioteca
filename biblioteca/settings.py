@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'cuentas',
     'peliculas',
     'rest_framework',
-    'django_cleanup.apps.CleanupConfig',    #Para eliminar elementos imagenes antiguas
+    'django_cleanup.apps.CleanupConfig',    #Para eliminar elementos antiguos
 ]
 
 #Configuración de la api REST
