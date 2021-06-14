@@ -39,7 +39,7 @@ Para poder disponer de la funcionalidad de la biblioteca debemos de acceder a la
   
   
   
-## Ejemplo de uso ## 
+## Ejemplo de uso en web ## 
 Para poder usar esta biblioteca debemos de tener una cuenta. Para registrar una cuenta clicamos arriba a la derecha en la barra de navegación en ***"Registrar"*** o debajo del botón ingresar en ***"Registrar cuenta"***.  
 
 Rellenamos el formulario con el nombre de usario (con el que se accederá posteriormente a la cuenta), email, nombre, apellido, y contraseña. Cuando tengamos esto clicamos en el botón ***"Save"***. Cuando nos registremos nos llevará a la página donde se encuentra la biblioteca de películas. Clicando en la barra de arriba en ***"Biblioteca de Películas"***, ***"Directores"*** o ***"Actores"***, podremos acceder al listado de cada uno de estos elementos que hay guardados en la biblioteca (en este paso si accedes a estos listados no habrá ningún actor, película o director).   
@@ -59,8 +59,18 @@ Colocandose en el listado de película podemos buscar cualquier película median
 
 Por último clicando en el icono de navegación situado arriba a la derecha en la barra de navegación, se abre un desplegable y si pulsamos en la parte de ***"Cerrar Sesión"***, cerraremos la sesión de nuestra cuenta.  
   
-  ---
-
-
+  ---  
+    
+## Ejemplo de uso en api REST ##
+Del mismo modo que para poder utilizar el proyecto en web, debemos de tener una cuenta e iniciar sesión en esta.  
+Para poder ver el listado de actores, películas o directores tenemos que acceder a:  http://127.0.0.1:8000/api/actores, http://127.0.0.1:8000/api/directores y http://127.0.0.1:8000/api/peliculas. Además de poder ver el listado de los distintos elementos de la biblioteca, también podremos añadir más elementos mediante ***"POST"***.  
+Si añadimos a las URLs anteriormente mencionadas, el *"id"* de cada elemento al final, accederemos a la configuración en concreto de cada uno de estos. Una vez dentro de cada elemneto, podremos actualizar cada uno de estos mediante ***"PUT"*** o borrar mediante ***"DELETE"***.  
+Dentro de cada película, si además añadimos al final de la URLs la palabra *"valorar"*, podremos votar a una película con una nota de 0.0 a 10.0. En este caso la forma de introducir una valoración es la siguiente:  
+  
+```  
+{
+    "valoracion": 7.0
+}
+```  
 
 
