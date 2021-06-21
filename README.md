@@ -4,18 +4,48 @@ Pequeña biblioteca de almacenamiento de Películas creada en Django
   
   
 ## Instalación ##
-Primero clonamos el Repositorio (también podemos descargar el repositorio en formato ZIP)  
+Primero clonamos el Repositorio (también podemos descargar el repositorio en formato ZIP):  
   
 ```  
 git clone https://github.com/AlbertoMaciasGutierrez/biblioteca.git  
 ```
   
   
-Una vez descargado el repositorio debemos de instalar los requirements.txt en nuestro entorno virtual  
+Una vez descargado el repositorio debemos de instalar los requirements.txt en nuestro entorno virtual:  
   
 ```  
 pip install -r requirements.txt  
 ```
+  
+Para poder hacer uso de la aplicación necesitamos tener instalado MariaDB. Una vez instalado esto, desde un terminal o bien desde el programa HeidiSQL (el cual se instala al instalar MariaDB) creamos una base de datos con la orden:  
+```  
+CREATE database nombreBaseDatos  
+```
+  
+Ahora acccedemos a la base de datos creada en la que registramos un usuario y le damos permisos para que pueda acceder a la base de datos:  
+```  
+	CREATE USER nombreUsuario@localhost IDENTIFIED BY 'contraseña';
+	GRANT ALL privileges ON nombreBaseDatos.* TO nombreUsuario@localhost;
+	FLUSH PRIVILEGES; 
+```  
+  
+Por último para poder usar la base de datos en nuestro proyecto Django, debemos de cambiar una parte del código en el fichero ***"biblioteca/settings.py"***:  
+```  
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'nombreBaseDatos',
+        'USER': 'nombreUsuario',
+        'PASSWORD': 'contraseña',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
+```  
+- En la parte de *'NAME'*, introducimos el nombre de la base de datos
+- En la parte de *'USER'*, introducimos el nombre del usuario creado  
+- En la parte de *'PASSWORD'*, introducimos la contraseña del usuario creado
+- En la parte de *'PORT'*, introducimos el número de puerto en el que se lanzan las bases de datos de MariaDB (3306 por defecto)
   
   ---
   
