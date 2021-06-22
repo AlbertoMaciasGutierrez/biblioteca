@@ -24,9 +24,9 @@ CREATE database nombreBaseDatos
   
 Ahora acccedemos a la base de datos creada en la que registramos un usuario y le damos permisos para que pueda acceder a la base de datos:  
 ```  
-	CREATE USER nombreUsuario@localhost IDENTIFIED BY 'contraseña';
-	GRANT ALL privileges ON nombreBaseDatos.* TO nombreUsuario@localhost;
-	FLUSH PRIVILEGES; 
+CREATE USER nombreUsuario@localhost IDENTIFIED BY 'contraseña';
+GRANT ALL privileges ON nombreBaseDatos.* TO nombreUsuario@localhost;
+FLUSH PRIVILEGES; 
 ```  
   
 Por último para poder usar la base de datos en nuestro proyecto Django, debemos de cambiar una parte del código en el fichero ***"biblioteca/settings.py"***:  
